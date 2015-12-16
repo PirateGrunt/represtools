@@ -1,0 +1,14 @@
+Package: represtools
+Title: Automates Basic Analytic Tasks
+Version: 0.0.0.9000
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph)
+Depends:
+    R (>= 3.2.0)
+License: What license is it under?
+LazyData: true
+Suggests:
+    testthat,
+    knitr
+VignetteBuilder: knitr
+RoxygenNote: 5.0.1
