@@ -1,0 +1,245 @@
+---
+title: "represtools"
+author: "Brian A. Fannin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{represtools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview
+
+I'm a bush league analyst. Lacking any formal education, I crave structure. Without loads of brain power, I need code to recreate the replicable steps of that core structure. I need something to help me when I get lost (and I will always get lost). This package is meant to do that for me. Hopefully it provides value to you as well. 
+
+This package may be thought of as a mashup of Reproducible Research by Gandrud and `devtools` by Hadley Wickham.
+
+### Guiding principals
+
+I can't hold more than a few thoughts in my head. For an analysis workflow, these are the ones that keep bubbling to the top, which suggests they may make sense. Here they are:
+
+* Each analytic step should be modular. This means that it may work in isolation, so long as precedent data exists.
+* Any of the steps may be reproduced by another researcher. 
+* There are only four steps: gather, cook, analyze and publish. 
+* The only form of data exchange from one step to the next is .RDA.
+
+The four steps are verbs. Their outputs are adjectives which describe the data contained.
+
+Each step may have individual parts, which may rely on one another. Further, the process need not be unidirectional/may be recursive. For example, the gather step may involve an expensive API call, which we'd like to restrict to a subset of some larger body of data. That subsetting properly belongs within the cook step.
+
+### Recursive processing
+
+Assume that I'm analyzing insurance performance. I'd like to 
+
+## So you want to analyze some data?
+
+Let's say we'd like to know something about the batting performance of baseball players. To start, we'll simply tell R that we'd like a new analysis about baseball.
+
+```{r }
+represtools::NewAnalysis("baseball")
+```
+
+This will create the 
+
+```{r }
+represtools::NewAnalysis("baseball", packrat = FALSE)
+```
+
+```{r }
+represtools::NewAnalysis("baseball", packrat = FALSE, RStudio = FALSE, git = FALSE)
+```
+
+```{r eval=FALSE}
+represtools::AddGitRemote()
+```
+
+More than one analysis at a time?
+
+```{r eval=FALSE}
+represtools::OpenAnalysis("hockey")
+represtools::OpenAnalysis(c("hockey", "football"))
+
+represtools::OpenAnalyses()
+
+represtools::CloseAnalysis()
+```
+
+
+## Gather some data
+
+Every analysis begins with data. In all likelihood, it comes from one of four places:
+
+1. A database
+2. The internet
+3. Raw data provided to the analyst
+4. An R package
+
+```{r eval=FALSE}
+represtools::Gather("Hitter")
+```
+
+This will create a new .Rmd file in the "gather" directory. The template
+
+We assume that the name of the output file will match that of the file used to gather the data. If I'd wanted to deviate from that construct, I'd just say so.
+
+```{r eval=FALSE}
+represtools::Gather("Hitter", outfile = "Batsmen.rda")
+```
+
+```{r eval=FALSE}
+represtools::Gather("Hitter", source = "HTTP")
+represtools::Gather("Hitter", source = "SQL")
+```
+
+Or maybe, I'd like a combination of sources.
+
+```{r eval=FALSE}
+represtools::Gather("Hitter", source = c("HTTP", "SQL"))
+```
+
+```{r eval=FALSE}
+represtools::Gather("Hitter"
+                    , sourceName = c("NationalLeague.SQL", "AmericanLeague.SQL"))
+```
+
+```{r eval=FALSE}
+represtools::AddSql("Hitter", "AmericanLeague.sql")
+
+# OR
+represtools::Gather("Hitter", source="SQL", sourceName = "AmericanLeague.sql")
+```
+
+```{r eval=FALSE}
+represtools::Gather("Hitter", source="package", sourceName = "Lahman::Batting")
+```
+
+## Process the data
+
+The default presumption is that all raw data must be processed and that there is a one-to-one correspondance between gathering and processing. This presumption will often be violated. 
+
+```{r eval=FALSE}
+represtools::Process("HitterData")
+```
+
+```{r eval=FALSE}
+represtools::Process("Hitters", requires = c("Hitters.rda", "Salaries.rda"))
+```
+
+### All together now
+
+Rather than typing each step individually, the `Data()` function will add code to `Gather` and `Process` named data sets. This is useful, if I know in advance that 
+
+```{r eval=FALSE}
+represtools::Data("HitterData")
+```
+
+Or maybe two:
+
+```{r eval=FALSE}
+represtools::Flow("Hitter", "Salary")
+```
+
+## Analyze the data
+
+```{r eval=FALSE}
+represtools::Analyze("HitterData")
+```
+
+## Publish
+
+Publish is slightly different. There will be no data output, but 
+
+## Clean your analysis
+
+Do you have merge statements in analysis files? It may make sense, but it may be more appropriate to handle this within the processing step.
+
+```{r eval=FALSE}
+represtools::Data("Hitter", "Salary")
+# do some work
+represtools::Clean()
+# warning: Hitter and Salary data could be combined. Would you like to do this?
+```
+
+## Make
+
+`represtools` relies on the tool `make` to control the workflow. `make` keeps track of file dependencies between various modules of the project. A full description of `make` is beyond the scope of this vignette. I would refer the interested reader to the [GNU Make documentation](http://www.gnu.org/software/make/) for detail. Simply put, Make does the following:
+
+* Make only runs those elements of your project which are needed. 
+* It's possible to construct various "recipes" which different
+
+`Make` is incorporated into RStudio and this will be reflected in the RStudio project file, if the user asked for one. One may also invoke Make by calling the `Make` function within represtools.
+
+```{r eval=FALSE}
+represtools::Make()
+```
+
+`represtools::Make` accepts one parameter, which indicates which recipe to create. By default, every represtools Makefile comes with at least four: "all", "clean", "cooked" and "cleanCooked". `represtools` distinguishes between "raw" and "cooked" data.
+
+It's possible that a reviewer won't or shouldn't have access to the system which houses the raw information. In this case, the other steps may be carried out based on the raw information which has been gathered. The code to gather the information should still be available; one should be careful to ensure that confidential information like a password or SSH key is not included in the gather code. `represtools` supports this notion with a Makefile recipe that only deals with "cooked", i.e. non-raw, data. In addition, there is a clean option which will only clean cooked data.
+
+The following code would wipe output from the process, analyze and present steps and then rerun them.
+
+```{r eval=FALSE}
+represtools::CleanCooked()
+represtools::MakeCooked()
+
+represtools::Make("cooked")
+```
+
+### 
+
+```{r eval=FALSE}
+represtools::ConfirmMake()
+# Make has been installed. You're good to go.
+
+represtools::ConfirmTeX()
+# There is a TeX installation. You're good to go.
+
+represtools::ConfirmMarkdown()
+```
+
+## A sample session
+
+```{r eval=FALSE}
+represtools::NewAnalysis("baseball", data="Hitter")
+# Write some code
+represtools::Make()
+
+represtools::AddData("Salary")
+# write some code
+represtools::Clean()
+represtools::Make()
+
+represtools::Gather("Japanese")
+represtools::Process("Japanese", requires = "Japanese")
+
+represtools::Analyze("Handedness", requires = "Hitter")
+represtools::MapFlow()
+represtools::Present("On the quality of right-handed hitters.html", requires=c("Handedness"))
+
+represtools::Make()
+represtools::Make(target = "cooked")
+represtools::Make(clean=TRUE)
+
+myProjects <- paste0("./SportsAnalysis/", c("baseball", "football"))
+represtools::Make(myProjects)
+```
+
+## Questions
+
+### Why not .rds?
+
+For now, I'm sticking with .rda. It enables you to save more than one item in a file and doesn't lose the names of the objects. I think it's possible to introduce confusion if a user loads the same data into two different named objects. As the goal is reproduction, we should try to avoid this. Yes, it's possible to copy an object to a new variable, but I think this is more transparent in a review of code. I think most R users may not even be aware of the difference between .rda and .rds.
+
+### What's wrong with ProjectTemplate?
+
+The short answer is nothing. John Myles White doesn't need my help in getting more efficient at analyzing data. His structure works for him and, I'm sure, loads of other people, but it just didn't work for me. My tiny brain can't handle more than about 4 folders at a time. I struggle to understand the difference between "data" and "cache", "doc" and "reports", "lib" and "src". ProjectTemplate's philosophy seems monolithic: load all of the data, work with it and produce a single output. I like to break things into bite-size chunks and only look at whatever element of data is relevant for a certain element of analysis. I also find that gathering and processing tend to be steps that get reworked often, even in a later stage of analysis.
+
+None of this is meant as crticism. John White is loads smarter than me and he's created something very useful for people whose brains function like his. Some people like Coke. Some people like Pepsi.
+
+## References
+
+* Christopher Gandrud
+* Hadley devtools
+* Yihui knitr
