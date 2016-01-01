@@ -22,41 +22,41 @@ I can't hold more than a few thoughts in my head. For an analysis workflow, thes
 * Each analytic step should be modular. This means that it may work in isolation, so long as precedent data exists.
 * Any of the steps may be reproduced by another researcher. 
 * There are only four steps: gather, cook, analyze and publish. 
-* The only form of data exchange from one step to the next is .RDA.
+* The only form of data exchange between steps is .rda.
+* Common external data sources like SQL and URL should be easy to deal with.
+* Version control is 
+
+### The four steps of data analysis
 
 The four steps are verbs. Their outputs are adjectives which describe the data contained.
 
 Each step may have individual parts, which may rely on one another. Further, the process need not be unidirectional/may be recursive. For example, the gather step may involve an expensive API call, which we'd like to restrict to a subset of some larger body of data. That subsetting properly belongs within the cook step.
 
-### Recursive processing
-
-Assume that I'm analyzing insurance performance. I'd like to 
-
-## So you want to analyze some data?
+## A sample workflow
 
 Let's say we'd like to know something about the batting performance of baseball players. To start, we'll simply tell R that we'd like a new analysis about baseball.
 
-```{r }
+```{r eval = FALSE}
 represtools::NewAnalysis("baseball")
 ```
 
-This will create the 
+### Options 
 
-```{r }
+```{r eval = FALSE}
 represtools::NewAnalysis("baseball", packrat = FALSE)
 ```
 
-```{r }
+```{r eval = FALSE}
 represtools::NewAnalysis("baseball", packrat = FALSE, RStudio = FALSE, git = FALSE)
 ```
 
-```{r eval=FALSE}
+```{r eval = FALSE}
 represtools::AddGitRemote()
 ```
 
 More than one analysis at a time?
 
-```{r eval=FALSE}
+```{r eval = FALSE}
 represtools::OpenAnalysis("hockey")
 represtools::OpenAnalysis(c("hockey", "football"))
 
@@ -90,12 +90,6 @@ represtools::Gather("Hitter", outfile = "Batsmen.rda")
 ```{r eval=FALSE}
 represtools::Gather("Hitter", source = "HTTP")
 represtools::Gather("Hitter", source = "SQL")
-```
-
-Or maybe, I'd like a combination of sources.
-
-```{r eval=FALSE}
-represtools::Gather("Hitter", source = c("HTTP", "SQL"))
 ```
 
 ```{r eval=FALSE}
@@ -202,13 +196,10 @@ represtools::ConfirmMarkdown()
 ## A sample session
 
 ```{r eval=FALSE}
-represtools::NewAnalysis("baseball", data="Hitter")
-# Write some code
-represtools::Make()
-
-represtools::AddData("Salary")
+represtools::NewAnalysis("Baseball")
+represtools::Gather("Japan")
+represtools::Gather("US")
 # write some code
-represtools::Clean()
 represtools::Make()
 
 represtools::Gather("Japanese")
@@ -218,9 +209,13 @@ represtools::Analyze("Handedness", requires = "Hitter")
 represtools::MapFlow()
 represtools::Present("On the quality of right-handed hitters.html", requires=c("Handedness"))
 
+represtools::Gather("Salary")
+
+represtools::Clean()
 represtools::Make()
+represtools::ReCook()
 represtools::Make(target = "cooked")
-represtools::Make(clean=TRUE)
+represtools::Make(clean = TRUE)
 
 myProjects <- paste0("./SportsAnalysis/", c("baseball", "football"))
 represtools::Make(myProjects)
@@ -230,7 +225,7 @@ represtools::Make(myProjects)
 
 ### Why not .rds?
 
-For now, I'm sticking with .rda. It enables you to save more than one item in a file and doesn't lose the names of the objects. I think it's possible to introduce confusion if a user loads the same data into two different named objects. As the goal is reproduction, we should try to avoid this. Yes, it's possible to copy an object to a new variable, but I think this is more transparent in a review of code. I think most R users may not even be aware of the difference between .rda and .rds.
+For now, I'm sticking with .rda. It enables you to save more than one item in a file and doesn't lose the names of the objects. I think it's possible to introduce confusion if a user loads the same data into two different named objects. As the goal is reproduction, we should try to avoid this. Yes, it's possible to copy an object to a new variable, but I think this is more transparent in a review of code. I think most R users may not even be aware of the difference between .rda and .rds. (But read more here: []())
 
 ### What's wrong with ProjectTemplate?
 
