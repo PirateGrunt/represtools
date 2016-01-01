@@ -1,69 +1,73 @@
 ####################
 # Makefile
+####################
 
-# GATHER_DIR  = ./gather
-# COOK_DIR = ./cook
-# ANALYZE_DIR = ./analyze
-# PUBLISH_DIR = ./publish
+ROOT_DIR = ./
 
-GATHER_SOURCE = $(wildcard ./gather/*.Rmd)
-GATHERED =
+GATHER_DIR = $(ROOT_DIR)gather/
+GATHERED_DIR = $(ROOT_DIR)gathered/
+GATHER_SOURCE = $(wildcard $(GATHER_DIR)*.Rmd)
+GATHERED = $(patsubst $(GATHER_DIR)%.Rmd, $(GATHERED_DIR)%.rda, $(GATHER_SOURCE))
 
-COOK_SOURCE = $(wildcard ./cook/*.Rmd)
-COOKED =
+COOK_DIR = $(ROOT_DIR)cook/
+COOKED_DIR = $(ROOT_DIR)cooked/
+COOK_SOURCE = $(wildcard $(COOK_DIR)*.Rmd)
+COOKED = $(patsubst $(COOK_DIR)%.Rmd, $(COOKED_DIR)%.rda, $(COOK_SOURCE))
 
-ANALYZE_SOURCE = $(wildcard ./analyze/*.Rmd)
-ANALYZED =
+ANALYZE_DIR = $(ROOT_DIR)analyze/
+ANALYZED_DIR = $(ROOT_DIR)analyzed/
+ANALYZE_SOURCE = $(wildcard $(ANALYZE_DIR)*.Rmd)
+ANALYZED = $(patsubst $(ANALYZE_DIR)%.Rmd, $(ANALYZED_DIR)%.rda, $(ANALYZE_SOURCE))
 
-PUBLISH_SOURCE = $(wildcard ./publish/*.Rmd)
-PUBLISHED =
+PRESENT_DIR = $(ROOT_DIR)present/
+PRESENTED_DIR = $(ROOT_DIR)presented/
+PRESENT_DOC_SOURCE = $(wildcard $(PRESENT_DIR)*-d.Rmd)
+PRESENTED_DOCX = $(patsubst $(PRESENT_DIR)%-d.Rmd, $(PRESENTED_DIR)%.docx, $(PRESENT_DOC_SOURCE))
+PRESENT_HTML_SOURCE = $(wildcard $(PRESENT_DIR)*-h.Rmd)
+PRESENTED_HTML = $(patsubst $(PRESENT_DIR)%-h.Rmd, $(PRESENTED_DIR)%.html, $(PRESENT_HTML_SOURCE))
+PRESENTED = $(PRESENTED_HTML) $(PRESENTED_DOCX)
 
-KNIT = Rscript -e "require(rmarkdown); render('$<')"
-PUBLISH = Rscript -e "require(rmarkdown); render('$<', output_dir = '../published')"
+KNIT = Rscript -e "rmarkdown::render('$<')"
+GATHER = $(KNIT)
+COOK = Rscript -e "rmarkdown::render('$<', output_dir = '$(COOKED_DIR)')"
+ANALYZE = Rscript -e "rmarkdown::render('$<', output_dir = '$(ANALYZED_DIR)')"
+PRESENT = Rscript -e "rmarkdown::render('$<', output_dir = '$(PRESENTED_DIR)', output_file = '$@')"
 
-#########################
-## Build recipes
-#########################
-
-all: $(GATHERED) $(COOKED) $(ANALYZED) $(PUBLISHED)
-
-cooked: $(COOKED) $(ANALYZED) $(PUBLISHED)
+###################################################
+# Main recipe
+all: $(GATHERED) $(COOKED) $(ANALYZED) $(PRESENTED)
+###################################################
 
 #########################
 ## Gather
-#########################
-
-$(GATHER_DIR)/%.docx:$(GATHER_DIR)/%.Rmd
-	$(KNIT)
+$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd $(GATHER_DIR)%.sql
+	$(GATHER)
 
 #########################
-# Cook
-#########################
-
-$(COOK_DIR)/%.docx:$(COOK_DIR)/%.Rmd $(GATHER_OUT)
-	$(KNIT)
+# Process
+$(COOKED_DIR)%.rda:$(COOK_DIR)%.Rmd $(GATHERED)
+	$(COOK)
 
 #########################
 # Analyze
-#########################
-
-$(ANALYZE_DIR)/%.docx:$(ANALYZE_DIR)/%.Rmd $(COOK_OUT)
-	$(KNIT)
+$(ANALYZED_DIR)%.rda:$(ANALYZE_DIR)%.Rmd $(COOKED)
+	$(ANALYZE)
 
 #########################
-# Publish
-#########################
+# Present
+$(PRESENTED_DIR)%.html:$(PRESENT_DIR)%-h.Rmd $(ANALYZED)
+	$(PRESENT)
 
-$(PUBLISH_DIR)/%.html:$(PUBLISH_DIR)/%.Rmd $(ANALYZE_OUT)
-	$(PUBLISH)
+$(PRESENTED_DIR)%.docx:$(PRESENT_DIR)%-d.Rmd $(ANALYZED)
+	$(PRESENT)
 
 clean:
 	rm -fv $(GATHERED)
 	rm -fv $(COOKED)
 	rm -fv $(ANALYZED)
-	rm -fv $(PUBLISHED)
+	rm -fv $(PRESENTED)
 
-cleanCooked:
+clean_cooked:
 	rm -fv $(COOKED)
 	rm -fv $(ANALYZED)
-	rm -fv $(PUBLISHED)
+	rm -fv $(PRESENTED)
