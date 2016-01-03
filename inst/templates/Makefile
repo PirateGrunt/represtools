@@ -1,8 +1,8 @@
 ####################
 # Makefile
-####################
 
 ROOT_DIR = ./
+R_32 = C:/Progra~1/R/R-3.2.2/bin/i386/
 
 GATHER_DIR = $(ROOT_DIR)gather/
 GATHERED_DIR = $(ROOT_DIR)gathered/
@@ -25,41 +25,85 @@ PRESENT_DOC_SOURCE = $(wildcard $(PRESENT_DIR)*-d.Rmd)
 PRESENTED_DOCX = $(patsubst $(PRESENT_DIR)%-d.Rmd, $(PRESENTED_DIR)%.docx, $(PRESENT_DOC_SOURCE))
 PRESENT_HTML_SOURCE = $(wildcard $(PRESENT_DIR)*-h.Rmd)
 PRESENTED_HTML = $(patsubst $(PRESENT_DIR)%-h.Rmd, $(PRESENTED_DIR)%.html, $(PRESENT_HTML_SOURCE))
-PRESENTED = $(PRESENTED_HTML) $(PRESENTED_DOCX)
+PRESENT_PDF_SOURCE = $(wildcard $(PRESENT_DIR)*-h.Rmd)
+PRESENTED_PDF = $(patsubst $(PRESENT_DIR)%-p.Rmd, $(PRESENTED_DIR)%.pdf, $(PRESENT_PDF_SOURCE))
+PRESENTED = $(PRESENTED_HTML) $(PRESENTED_DOCX) $(PRESENTED_PDF)
 
 KNIT = Rscript -e "rmarkdown::render('$<')"
-GATHER = $(KNIT)
+GATHER = Rscript -e "rmarkdown::render('$<', output_dir = '$(GATHERED_DIR)')"
+GATHER_SQL = Rscript -e "rmarkdown::render('$(<:.sql=.Rmd)', output_dir = '$(GATHERED_DIR)')"
 COOK = Rscript -e "rmarkdown::render('$<', output_dir = '$(COOKED_DIR)')"
 ANALYZE = Rscript -e "rmarkdown::render('$<', output_dir = '$(ANALYZED_DIR)')"
 PRESENT = Rscript -e "rmarkdown::render('$<', output_dir = '$(PRESENTED_DIR)', output_file = '$@')"
 
-###################################################
-# Main recipe
+#///////////////////////////////////////////////////
+## M A I N   R E C I P E
 all: $(GATHERED) $(COOKED) $(ANALYZED) $(PRESENTED)
-###################################################
 
-#########################
-## Gather
-$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd $(GATHER_DIR)%.sql
+## End Main recipe
+##==================================================
+
+#///////////////////////////////////////////////////
+## G A T H E R
+$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.sql
+	@echo =============================================
+	@echo == SQL changed for $<.
+	@echo =============================================
+	$(GATHER_SQL)
+
+$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd
+	@echo =============================================
+	@echo ==Gather $(<:.Rmd=.)
+	@echo =============================================
 	$(GATHER)
 
-#########################
-# Process
+## End Gather
+##==================================================
+
+#///////////////////////////////////////////////////
+# C O O K
 $(COOKED_DIR)%.rda:$(COOK_DIR)%.Rmd $(GATHERED)
+	@echo =============================================
+	@echo == Process $(<:.Rmd=.)
+	@echo =============================================
 	$(COOK)
 
-#########################
-# Analyze
+## End Cook
+##==================================================
+
+#///////////////////////////////////////////////////
+## A N A L Y Z E
 $(ANALYZED_DIR)%.rda:$(ANALYZE_DIR)%.Rmd $(COOKED)
+	@echo =============================================
+	@echo == Analyze $(<:.Rmd=)
+	@echo =============================================
 	$(ANALYZE)
 
-#########################
-# Present
+## End Anaylze
+##==================================================
+
+#///////////////////////////////////////////////////
+## P R E S E N T
 $(PRESENTED_DIR)%.html:$(PRESENT_DIR)%-h.Rmd $(ANALYZED)
+	@echo =============================================
+	@echo == Present $(<:.Rmd=)
+	@echo =============================================
 	$(PRESENT)
 
 $(PRESENTED_DIR)%.docx:$(PRESENT_DIR)%-d.Rmd $(ANALYZED)
+	@echo =============================================
+	@echo == Present $(<:.Rmd=)
+	@echo =============================================
 	$(PRESENT)
+
+$(PRESENTED_DIR)%.pdf:$(PRESENT_DIR)%-p.Rmd $(ANALYZED)
+	@echo =============================================
+	@echo == Present $(<:.Rmd=)
+	@echo =============================================
+	$(PRESENT)
+
+## End Present
+##==================================================
 
 clean:
 	rm -fv $(GATHERED)
