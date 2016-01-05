@@ -1,0 +1,19 @@
+---
+title: {{ GATHER_TITLE }}
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_chunk$set(cache=FALSE, echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+```{r SupportLibraries}
+```
+
+```{r Locals}
+outputDir <- "../gathered/"
+```
+
+```{r WriteOutput}
+represtools:SaveGathered(file = "{{ GATHER_SAVE_FILE }}.rda"
+                         , )
+```

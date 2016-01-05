@@ -1,16 +1,20 @@
 ---
-title: {{ GATHER_TITLE }}
+title: {{ COOK_TITLE }}
 params: 
   inputDir: "../gathered/"
-  thisDir:  "../gather/"
-  outputDir: "../gathered/"
-  thisFileName: {{ GATHER_FILE }}
+  thisDir:  "../cook/"
+  outputDir: "../cooked/"
+  thisFileName: {{ COOK_FILE }}
+  inputFiles: [file1, file1]
 ---
 
 ```{r KnitrOpts, echo=FALSE}
 knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
 ```
 
+```{r Load}
+load(file = paste0(params$inputDir, params$inputFiles, ".rda"))
+```
 
 
 ```{r WriteOutput}

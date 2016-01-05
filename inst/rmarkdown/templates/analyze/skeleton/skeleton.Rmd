@@ -1,0 +1,23 @@
+---
+title: {{ ANALYZE_TITLE }}
+params: 
+  inputDir: "../cooked/"
+  thisDir:  "../analyze/"
+  outputDir: "../analyzed/"
+  thisFileName: {{ ANALYZE_FILE }}
+  inputFiles: [file1, file1]
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+```{r Load}
+load(file = paste0(params$inputDir, params$inputFiles, ".rda"))
+```
+
+
+```{r WriteOutput}
+save(file = paste0(params$outputDir, params$thisFileName, ".rda")
+     , )
+```
