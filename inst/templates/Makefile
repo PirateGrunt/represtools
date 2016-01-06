@@ -2,7 +2,6 @@
 # Makefile
 
 ROOT_DIR = ./
-R_32 = C:/Progra~1/R/R-3.2.2/bin/i386/
 
 GATHER_DIR = $(ROOT_DIR)gather/
 GATHERED_DIR = $(ROOT_DIR)gathered/
@@ -30,8 +29,7 @@ PRESENTED_PDF = $(patsubst $(PRESENT_DIR)%-p.Rmd, $(PRESENTED_DIR)%.pdf, $(PRESE
 PRESENTED = $(PRESENTED_HTML) $(PRESENTED_DOCX) $(PRESENTED_PDF)
 
 KNIT = Rscript -e "rmarkdown::render('$<')"
-GATHER = Rscript -e "rmarkdown::render('$<', output_dir = '$(GATHERED_DIR)')"
-GATHER_SQL = Rscript -e "rmarkdown::render('$(<:.sql=.Rmd)', output_dir = '$(GATHERED_DIR)')"
+GATHER = Rscript -e "rmarkdown::render('$(<:.sql=.Rmd)', output_dir = '$(GATHERED_DIR)')"
 COOK = Rscript -e "rmarkdown::render('$<', output_dir = '$(COOKED_DIR)')"
 ANALYZE = Rscript -e "rmarkdown::render('$<', output_dir = '$(ANALYZED_DIR)')"
 PRESENT = Rscript -e "rmarkdown::render('$<', output_dir = '$(PRESENTED_DIR)', output_file = '$@')"
@@ -52,15 +50,9 @@ no_gather: $(COOKED) $(ANALYZED) $(PRESENTED)
 
 #///////////////////////////////////////////////////
 ## G A T H E R
-$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.sql
+$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd $(GATHER_DIR)%.sql
 	@echo =============================================
-	@echo == SQL changed for $<.
-	@echo =============================================
-	$(GATHER_SQL)
-
-$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd
-	@echo =============================================
-	@echo ==Gather $(<:.Rmd=.)
+	@echo == Gather $(<:.Rmd=.)
 	@echo =============================================
 	$(GATHER)
 
@@ -71,7 +63,7 @@ $(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd
 # C O O K
 $(COOKED_DIR)%.rda:$(COOK_DIR)%.Rmd $(GATHERED)
 	@echo =============================================
-	@echo == Process $(<:.Rmd=.)
+	@echo == Cook $(<:.Rmd=.)
 	@echo =============================================
 	$(COOK)
 
