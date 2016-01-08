@@ -50,7 +50,10 @@ no_gather: $(COOKED) $(ANALYZED) $(PRESENTED)
 
 #///////////////////////////////////////////////////
 ## G A T H E R
-$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd $(GATHER_DIR)%.sql
+$(GATHER_DIR)%.Rmd:$(GATHER_DIR)%.sql
+	touch $(@)
+
+$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd 
 	@echo =============================================
 	@echo == Gather $(<:.Rmd=.)
 	@echo =============================================
