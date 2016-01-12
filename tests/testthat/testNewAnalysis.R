@@ -1,10 +1,10 @@
 library(represtools)
-context("New analysis")
+context("New research")
 
 test_that("All directories are created", {
 
   oldWD <- setwd(tempdir())
-  represtools::NewAnalysis("Testing")
+  represtools::NewResearch("Testing")
 
   testthat::expect_true(file.exists("./Testing/gather"))
   testthat::expect_true(file.exists("./Testing/gathered"))
@@ -32,7 +32,7 @@ test_that("All directories are created", {
 test_that("Can't create analysis under root", {
 
   f <- function(){
-    NewAnalysis(path = "c:/", createNewDirectory = FALSE)
+    NewResearch(path = "c:/", createNewDirectory = FALSE)
   }
 
   expect_error(f())
@@ -40,7 +40,7 @@ test_that("Can't create analysis under root", {
 
 test_that("Makefile exists", {
   oldWD <- setwd(tempdir())
-  represtools::NewAnalysis("Testing")
+  represtools::NewResearch("Testing")
 
   testthat::expect_true(file.exists("./Testing/Makefile"))
   testthat::expect_false(file.info("./Testing/Makefile")$isdir)

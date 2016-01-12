@@ -30,24 +30,67 @@ I can't hold more than a few thoughts in my head. For an analysis workflow, thes
 
 The four steps are verbs. Their outputs are adjectives which describe the data contained.
 
-Each step may have individual parts, which may rely on one another. Further, the process need not be unidirectional/may be recursive. For example, the gather step may involve an expensive API call, which we'd like to restrict to a subset of some larger body of data. That subsetting properly belongs within the cook step.
+Each step may have individual parts, which may rely on one another. Further, the Cook need not be unidirectional/may be recursive. For example, the gather step may involve an expensive API call, which we'd like to restrict to a subset of some larger body of data. That subsetting properly belongs within the cook step.
 
 ## A sample workflow
+
+```{r eval=FALSE}
+represtools::NewResearch("Baseball")
+represtools::Gather("Hitters")
+# write some code
+represtools::Cook("Hitters")
+# write some code
+represtools::Analyze("Handedness")
+# write some code
+represtools::Present("Handedness", title = "On the quality of right-handed batters", output = "html")
+# write some code
+represtools::Make()
+represtools::AddGitRemote("Me")
+```
+
+And that would do it.
+
+Let's say that I'd like to augment my analysis with another set of batters. I'll need a new data frame, so I need a new gather file. I can
+
+```{r eval=FALSE}
+represtools::Gather("Japanese")
+represtools::Cook("Japanese")
+
+represtools::Analyze("Handedness", requires = "Hitter")
+represtools::MapFlow()
+represtools::Present("On the quality of right-handed hitters.html", requires=c("Handedness"))
+
+represtools::OpenResearch("~/Documents/Projects/Baseball")
+setwd("~/Documents/Projects/")
+represtools::OpenResearch("Baseball")
+represtools::Gather("Salary")
+
+represtools::Clean()
+represtools::Make()
+
+# These three will all do the same thing
+represtools::ReCook()
+represtools::Make(target = "cooked")
+represtools::Make(clean = TRUE)
+
+myProjects <- paste0("./SportsAnalysis/", c("baseball", "football"))
+represtools::Make(myProjects)
+```
 
 Let's say we'd like to know something about the batting performance of baseball players. To start, we'll simply tell R that we'd like a new analysis about baseball.
 
 ```{r eval = FALSE}
-represtools::NewAnalysis("baseball")
+represtools::NewResearch("baseball")
 ```
 
 ### Options 
 
 ```{r eval = FALSE}
-represtools::NewAnalysis("baseball", packrat = FALSE)
+represtools::NewResearch("baseball", packrat = FALSE)
 ```
 
 ```{r eval = FALSE}
-represtools::NewAnalysis("baseball", packrat = FALSE, RStudio = FALSE, git = FALSE)
+represtools::NewResearch("baseball", packrat = FALSE, RStudio = FALSE, git = FALSE)
 ```
 
 ```{r eval = FALSE}
@@ -57,8 +100,8 @@ represtools::AddGitRemote()
 More than one analysis at a time?
 
 ```{r eval = FALSE}
-represtools::OpenAnalysis("hockey")
-represtools::OpenAnalysis(c("hockey", "football"))
+represtools::OpenResearch("hockey")
+represtools::OpenResearch(c("hockey", "football"))
 
 represtools::OpenAnalyses()
 
@@ -108,21 +151,21 @@ represtools::Gather("Hitter", source="SQL", sourceName = "AmericanLeague.sql")
 represtools::Gather("Hitter", source="package", sourceName = "Lahman::Batting")
 ```
 
-## Process the data
+## Cook the data
 
-The default presumption is that all raw data must be processed and that there is a one-to-one correspondance between gathering and processing. This presumption will often be violated. 
+The default presumption is that all raw data must be Cooked and that there is a one-to-one correspondance between gathering and Cooking. This presumption will often be violated. 
 
 ```{r eval=FALSE}
-represtools::Process("HitterData")
+represtools::Cook("HitterData")
 ```
 
 ```{r eval=FALSE}
-represtools::Process("Hitters", requires = c("Hitters.rda", "Salaries.rda"))
+represtools::Cook("Hitters", requires = c("Hitters.rda", "Salaries.rda"))
 ```
 
 ### All together now
 
-Rather than typing each step individually, the `Data()` function will add code to `Gather` and `Process` named data sets. This is useful, if I know in advance that 
+Rather than typing each step individually, the `Data()` function will add code to `Gather` and `Cook` named data sets. This is useful, if I know in advance that 
 
 ```{r eval=FALSE}
 represtools::Data("HitterData")
@@ -146,18 +189,18 @@ Publish is slightly different. There will be no data output, but
 
 ## Clean your analysis
 
-Do you have merge statements in analysis files? It may make sense, but it may be more appropriate to handle this within the processing step.
+Do you have merge statements in analysis files? It may make sense, but it may be more appropriate to handle this within the Cooking step.
 
 ```{r eval=FALSE}
 represtools::Data("Hitter", "Salary")
-# do some work
+# do some work s
 represtools::Clean()
 # warning: Hitter and Salary data could be combined. Would you like to do this?
 ```
 
 ## Make
 
-`represtools` relies on the tool `make` to control the workflow. `make` keeps track of file dependencies between various modules of the project. A full description of `make` is beyond the scope of this vignette. I would refer the interested reader to the [GNU Make documentation](http://www.gnu.org/software/make/) for detail. Simply put, Make does the following:
+`represtools` relies on the tool `make` to control the workflow. `make` keeps track of file dependencies between various modules of the project. A full description of `make` may be found in the [GNU Make documentation](http://www.gnu.org/software/make/). Simply put, Make does the following:
 
 * Make only runs those elements of your project which are needed. 
 * It's possible to construct various "recipes" which different
@@ -172,7 +215,7 @@ represtools::Make()
 
 It's possible that a reviewer won't or shouldn't have access to the system which houses the raw information. In this case, the other steps may be carried out based on the raw information which has been gathered. The code to gather the information should still be available; one should be careful to ensure that confidential information like a password or SSH key is not included in the gather code. `represtools` supports this notion with a Makefile recipe that only deals with "cooked", i.e. non-raw, data. In addition, there is a clean option which will only clean cooked data.
 
-The following code would wipe output from the process, analyze and present steps and then rerun them.
+The following code would wipe output from the Cook, analyze and present steps and then rerun them.
 
 ```{r eval=FALSE}
 represtools::CleanCooked()
@@ -193,33 +236,6 @@ represtools::ConfirmTeX()
 represtools::ConfirmMarkdown()
 ```
 
-## A sample session
-
-```{r eval=FALSE}
-represtools::NewAnalysis("Baseball")
-represtools::Gather("Japan")
-represtools::Gather("US")
-# write some code
-represtools::Make()
-
-represtools::Gather("Japanese")
-represtools::Process("Japanese", requires = "Japanese")
-
-represtools::Analyze("Handedness", requires = "Hitter")
-represtools::MapFlow()
-represtools::Present("On the quality of right-handed hitters.html", requires=c("Handedness"))
-
-represtools::Gather("Salary")
-
-represtools::Clean()
-represtools::Make()
-represtools::ReCook()
-represtools::Make(target = "cooked")
-represtools::Make(clean = TRUE)
-
-myProjects <- paste0("./SportsAnalysis/", c("baseball", "football"))
-represtools::Make(myProjects)
-```
 
 ## Questions
 
@@ -229,7 +245,7 @@ For now, I'm sticking with .rda. It enables you to save more than one item in a 
 
 ### What's wrong with ProjectTemplate?
 
-The short answer is nothing. John Myles White doesn't need my help in getting more efficient at analyzing data. His structure works for him and, I'm sure, loads of other people, but it just didn't work for me. My tiny brain can't handle more than about 4 folders at a time. I struggle to understand the difference between "data" and "cache", "doc" and "reports", "lib" and "src". ProjectTemplate's philosophy seems monolithic: load all of the data, work with it and produce a single output. I like to break things into bite-size chunks and only look at whatever element of data is relevant for a certain element of analysis. I also find that gathering and processing tend to be steps that get reworked often, even in a later stage of analysis.
+The short answer is nothing. John Myles White doesn't need my help in getting more efficient at analyzing data. His structure works for him and, I'm sure, loads of other people, but it just didn't work for me. My tiny brain can't handle more than about 4 folders at a time. I struggle to understand the difference between "data" and "cache", "doc" and "reports", "lib" and "src". ProjectTemplate's philosophy seems monolithic: load all of the data, work with it and produce a single output. I like to break things into bite-size chunks and only look at whatever element of data is relevant for a certain element of analysis. I also find that gathering and Cooking tend to be steps that get reworked often, even in a later stage of analysis.
 
 None of this is meant as crticism. John White is loads smarter than me and he's created something very useful for people whose brains function like his. Some people like Coke. Some people like Pepsi.
 

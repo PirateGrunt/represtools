@@ -1,4 +1,4 @@
-ConfirmExe <- function(){
+ConfirmExe <- function(exe){
   whereIsIt <- Sys.which(exe)
 
   if (nchar(whereIsIt) == 0){
