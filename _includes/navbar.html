@@ -1,0 +1,19 @@
+<h1><a href="{{ site.url }}{{ site.baseurl }}">{{ site.title }}</a></h1>
+
+<p class="lead">{{ site.description }}</p>
+
+<ul class="nav">
+  
+  <li><a href="{{ site.url }}{{ site.baseurl }}/index.html">Home</a></li>
+
+  {% for post in site.posts %}
+
+    <li>
+      <a class="sidebar-nav-item {% if page.url == post.url %} active {% endif %}" href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+    </li>
+    
+  {% endfor %}
+
+</ul>
+
+<p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
