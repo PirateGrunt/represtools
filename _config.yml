@@ -1,0 +1,23 @@
+# Dependencies
+markdown:         Kramdown
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+site:             PirateGrunt.com
+baseurl:          /represtools
+title:            represtools
+tagline:          'Reproducible Research Tools'
+description:      'Reproducible Research Tools'
+theme:            Superhero
+
+author:
+  name:           'Brian A. Fannin'
+
+paginate:         5
+
+# Custom vars
+version:          0.1.0
