@@ -1,23 +1,32 @@
 ---
 title: {{ COOK_TITLE }}
 params: 
-  inputDir: "../gathered/"
-  thisDir:  "../cook/"
-  outputDir: "../cooked/"
-  thisFileName: {{ COOK_FILE }}
-  inputFiles: [file1, file1]
+  inputDir: "gathered/"
+  thisDir:  "cook/"
+  outputDir: "cooked/"
+  fileStem: {{ COOK_STEM }}
+  inputFiles: 
+    - {{ INPUT_FILES}}
 ---
 
 ```{r KnitrOpts, echo=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
 knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
 ```
 
-```{r Load}
-load(file = paste0(params$inputDir, params$inputFiles, ".rda"))
+```{r Load, results='hide'}
+loadFiles <- paste0(params$inputDir, params$inputFiles, ".rda")
+lapply(loadFiles, load, .GlobalEnv)
+loadedObjects <- ls()
+loadedObjects <- loadedObjects[loadedObjects != "params"]
 ```
 
+Cook some data!
 
-```{r WriteOutput}
-save(file = paste0(params$outputDir, params$thisFileName, ".rda")
-     , )
+```{r Save}
+rm(list = loadedObjects)
+lstDfs <- ls(pattern = "df")
+
+save(file = paste0(params$outputDir, params$fileStem, ".rda")
+     , list = c(lstPlots, lstDfs, lstFits))
 ```

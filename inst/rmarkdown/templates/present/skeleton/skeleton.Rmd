@@ -1,19 +1,30 @@
 ---
-title: {{ GATHER_TITLE }}
+title: {{ PRESENT_TITLE }}
+params: 
+  inputDir: "analyzed/"
+  thisDir:  "present/"
+  outputDir: "presented/"
+  fileStem: "{{ PRESENT_STEM }}"
+  inputFiles: 
+    - {{ INPUT_FILES }}
 ---
 
 ```{r KnitrOpts, echo=FALSE}
-knitr::opts_chunk$set(cache=FALSE, echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=TRUE)
 ```
 
-```{r SupportLibraries}
+```{r Load, results='hide'}
+loadFiles <- paste0(params$inputDir, params$inputFiles, ".rda")
+lapply(loadFiles, load, .GlobalEnv)
+loadedObjects <- ls()
+loadedObjects <- loadedObjects[loadedObjects != "params"]
 ```
 
-```{r Locals}
-outputDir <- "../gathered/"
-```
+Analyze some data!
 
-```{r WriteOutput}
-represtools:SaveGathered(file = "{{ GATHER_SAVE_FILE }}.rda"
-                         , )
+```{r Save}
+
+save(file = paste0(params$outputDir, params$fileStem, ".rda")
+     , list = c(lstPlots, lstDfs, lstFits))
 ```

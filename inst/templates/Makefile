@@ -20,19 +20,14 @@ ANALYZED = $(patsubst $(ANALYZE_DIR)%.Rmd, $(ANALYZED_DIR)%.rda, $(ANALYZE_SOURC
 
 PRESENT_DIR = $(ROOT_DIR)present/
 PRESENTED_DIR = $(ROOT_DIR)presented/
-PRESENT_DOC_SOURCE = $(wildcard $(PRESENT_DIR)*-d.Rmd)
-PRESENTED_DOCX = $(patsubst $(PRESENT_DIR)%-d.Rmd, $(PRESENTED_DIR)%.docx, $(PRESENT_DOC_SOURCE))
-PRESENT_HTML_SOURCE = $(wildcard $(PRESENT_DIR)*-h.Rmd)
-PRESENTED_HTML = $(patsubst $(PRESENT_DIR)%-h.Rmd, $(PRESENTED_DIR)%.html, $(PRESENT_HTML_SOURCE))
-PRESENT_PDF_SOURCE = $(wildcard $(PRESENT_DIR)*-h.Rmd)
-PRESENTED_PDF = $(patsubst $(PRESENT_DIR)%-p.Rmd, $(PRESENTED_DIR)%.pdf, $(PRESENT_PDF_SOURCE))
-PRESENTED = $(PRESENTED_HTML) $(PRESENTED_DOCX) $(PRESENTED_PDF)
+PRESENT_SOURCE = $(wildcard $(PRESENT_DIR)*.Rmd)
+PRESENTED = $(patsubst $(PRESENT_DIR)%.Rmd, $(PRESENTED_DIR)%.rda, $(PRESENT_SOURCE))
 
 KNIT = Rscript -e "rmarkdown::render('$<')"
 GATHER = Rscript -e "rmarkdown::render('$(<:.sql=.Rmd)', output_dir = '$(GATHERED_DIR)')"
 COOK = Rscript -e "rmarkdown::render('$<', output_dir = '$(COOKED_DIR)')"
 ANALYZE = Rscript -e "rmarkdown::render('$<', output_dir = '$(ANALYZED_DIR)')"
-PRESENT = Rscript -e "rmarkdown::render('$<', output_dir = '$(PRESENTED_DIR)', output_file = '$@')"
+PRESENT = Rscript -e "rmarkdown::render('$<', output_dir = '$(PRESENTED_DIR)')"
 
 #///////////////////////////////////////////////////
 ## M A I N   R E C I P E
@@ -51,11 +46,14 @@ no_gather: $(COOKED) $(ANALYZED) $(PRESENTED)
 #///////////////////////////////////////////////////
 ## G A T H E R
 $(GATHER_DIR)%.Rmd:$(GATHER_DIR)%.sql
-	touch $(@)
-
-$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd 
 	@echo =============================================
-	@echo == Gather $(<:.Rmd=.)
+	@echo == SQL updated for $(@:.Rmd=.)
+	@echo =============================================
+	touch $@
+
+$(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd
+	@echo =============================================
+	@echo == Working on $(<:.Rmd=.)
 	@echo =============================================
 	$(GATHER)
 
@@ -66,7 +64,7 @@ $(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd
 # C O O K
 $(COOKED_DIR)%.rda:$(COOK_DIR)%.Rmd $(GATHERED)
 	@echo =============================================
-	@echo == Cook $(<:.Rmd=.)
+	@echo == Working on $(<:.Rmd=.)
 	@echo =============================================
 	$(COOK)
 
@@ -86,21 +84,9 @@ $(ANALYZED_DIR)%.rda:$(ANALYZE_DIR)%.Rmd $(COOKED)
 
 #///////////////////////////////////////////////////
 ## P R E S E N T
-$(PRESENTED_DIR)%.html:$(PRESENT_DIR)%-h.Rmd $(ANALYZED)
+$(PRESENTED_DIR)%.rda:$(PRESENT_DIR)%.Rmd $(ANALYZED)
 	@echo =============================================
-	@echo == Present $(<:.Rmd=)
-	@echo =============================================
-	$(PRESENT)
-
-$(PRESENTED_DIR)%.docx:$(PRESENT_DIR)%-d.Rmd $(ANALYZED)
-	@echo =============================================
-	@echo == Present $(<:.Rmd=)
-	@echo =============================================
-	$(PRESENT)
-
-$(PRESENTED_DIR)%.pdf:$(PRESENT_DIR)%-p.Rmd $(ANALYZED)
-	@echo =============================================
-	@echo == Present $(<:.Rmd=)
+	@echo == Working on $(<:.Rmd=)
 	@echo =============================================
 	$(PRESENT)
 
@@ -114,6 +100,6 @@ clean:
 	rm -fv $(PRESENTED)
 
 clean_cooked:
-	rm -fv $(COOKED)
-	rm -fv $(ANALYZED)
-	rm -fv $(PRESENTED)
+	rm -fv $(COOKED_DIR)/*
+	rm -fv $(ANALYZED_DIR)/*
+	rm -fv $(PRESENTED_DIR)/*

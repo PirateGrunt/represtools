@@ -1,23 +1,33 @@
 ---
 title: {{ ANALYZE_TITLE }}
 params: 
-  inputDir: "../cooked/"
-  thisDir:  "../analyze/"
-  outputDir: "../analyzed/"
-  thisFileName: {{ ANALYZE_FILE }}
-  inputFiles: [file1, file1]
+  inputDir: "cooked/"
+  thisDir:  "analyze/"
+  outputDir: "analyzed/"
+  fileStem: "{{ ANALYZE_STEM }}"
+  inputFiles: 
+    - {{ INPUT_FILES }}
 ---
 
 ```{r KnitrOpts, echo=FALSE}
-knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=TRUE)
 ```
 
-```{r Load}
-load(file = paste0(params$inputDir, params$inputFiles, ".rda"))
+```{r Load, results='hide'}
+loadFiles <- paste0(params$inputDir, params$inputFiles, ".rda")
+lapply(loadFiles, load, .GlobalEnv)
+loadedObjects <- ls()
+loadedObjects <- loadedObjects[loadedObjects != "params"]
 ```
 
+Analyze some data!
 
-```{r WriteOutput}
-save(file = paste0(params$outputDir, params$thisFileName, ".rda")
-     , )
+```{r Save}
+rm(list = loadedObjects)
+lstPlots <- ls(pattern = "plt")
+lstDfs <- ls(pattern = "df")
+
+save(file = paste0(params$outputDir, params$fileStem, ".rda")
+     , list = c(lstPlots, lstDfs, lstFits))
 ```
