@@ -1,31 +1,3 @@
-packageEnv <- new.env()
-packageEnv$researchDir <- path.expand("~")
-packageEnv$researchName <- ""
-
-#' ResearchDir
-#'
-#' @return The current research directory. The default is the home directory
-#'
-#' @details This will change the working directory to the research project root.
-#' @export
-OpenResearch <- function(path){
-
-  if (missing(path)){
-    invisible(packageEnv$researchDir)
-  } else {
-    if (packageEnv$ResearchDir != "" |
-        packageEnv$researchDir != character(0)) &
-        packageEnv$researchDir ) {
-          # We want to handle the
-      warning("")
-    }
-    packageEnv$researchDir <- path
-  }
-
-  invisible(packageEnv$researchDir)
-
-}
-
 #' Create a new Research
 #'
 #' @param path A character variable indicating the name of the project to create
@@ -80,6 +52,8 @@ NewResearch <- function(path = "."
 #
 #   if (git) AddGit()
 
+  setwd(path)
+
   invisible(path)
 }
 
@@ -114,3 +88,32 @@ ProjectName <- function(path){
   }
   root
 }
+
+packageEnv <- new.env()
+packageEnv$researchDir <- path.expand("~")
+packageEnv$researchName <- ""
+
+#' ResearchDir
+#'
+#' @return The current research directory. The default is the home directory
+#'
+#' @details This will change the working directory to the research project root.
+#' @export
+OpenResearch <- function(path){
+
+  if (missing(path)){
+    invisible(packageEnv$researchDir)
+  } else {
+    if (packageEnv$ResearchDir != "" |
+        packageEnv$researchDir != character(0) &
+        packageEnv$researchDir ) {
+        # We want to handle the
+        warning("")
+      }
+    packageEnv$researchDir <- path
+  }
+
+  invisible(packageEnv$researchDir)
+
+}
+

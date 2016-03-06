@@ -1,4 +1,4 @@
-#' Create a new analysis
+#' Read a SQL file
 #'
 #' @param filename A character variable with a filename
 #'
@@ -12,7 +12,8 @@ GetSQL <- function(filename){
 
   strSQL <- paste(strSQL, collapse=" ")
   strSQL = gsub("\\t", " ", strSQL)
-
   strSQL
 }
 
+
+timestamp(prefix = "", suffix = "")

@@ -1,11 +1,8 @@
 ConfirmExe <- function(exe){
-  whereIsIt <- Sys.which(exe)
+  whereIsIt <- unname(Sys.which(exe))
 
-  if (nchar(whereIsIt) == 0){
+  nchar(whereIsIt) != 0
 
-  } else {
-
-  }
 }
 
 #' Confirm existence of Make
@@ -14,7 +11,7 @@ ConfirmExe <- function(exe){
 #'
 #'
 ConfirmMake <- function(){
-  gotMake <- ConfirmExe()
+  gotMake <- ConfirmExe("make")
 }
 
 ConfirmTeX <- function(){
