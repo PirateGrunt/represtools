@@ -1,12 +1,12 @@
 ---
-title: {{ ANALYZE_TITLE }}
+title: {{{ TITLE }}}
 params: 
   inputDir: "cooked/"
   thisDir:  "analyze/"
   outputDir: "analyzed/"
-  fileStem: "{{ ANALYZE_STEM }}"
+  fileStem: {{{ FILE_STEM }}}
   inputFiles: 
-    - {{ INPUT_FILES }}
+    {{{ INPUT_FILES }}}
 ---
 
 ```{r KnitrOpts, echo=FALSE}
@@ -21,12 +21,15 @@ loadedObjects <- ls()
 loadedObjects <- loadedObjects[loadedObjects != "params"]
 ```
 
-Analyze some data!
+```{r}
+# Analyze some data!
+```
 
 ```{r Save}
 rm(list = loadedObjects)
-lstPlots <- ls(pattern = "plt")
 lstDfs <- ls(pattern = "df")
+lstPlots <- ls(pattern = "plt")
+lstFits <- ls(pattern = "fit")
 
 save(file = paste0(params$outputDir, params$fileStem, ".rda")
      , list = c(lstPlots, lstDfs, lstFits))

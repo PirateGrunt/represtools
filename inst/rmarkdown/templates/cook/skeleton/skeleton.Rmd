@@ -1,12 +1,12 @@
 ---
-title: {{ COOK_TITLE }}
+title: {{{ TITLE }}}
 params: 
   inputDir: "gathered/"
   thisDir:  "cook/"
   outputDir: "cooked/"
-  fileStem: {{ COOK_STEM }}
+  fileStem: {{{ FILE_STEM }}}
   inputFiles: 
-    - {{ INPUT_FILES}}
+    {{{ INPUT_FILES }}}
 ---
 
 ```{r KnitrOpts, echo=FALSE}
@@ -21,12 +21,22 @@ loadedObjects <- ls()
 loadedObjects <- loadedObjects[loadedObjects != "params"]
 ```
 
-Cook some data!
+```{r}
+# Cook some data!
+```
 
 ```{r Save}
 rm(list = loadedObjects)
+# rm(list = c(Things, I, dont, want))
 lstDfs <- ls(pattern = "df")
+lstPlots <- ls(pattern = "plt")
+```
 
+```{r}
+lapply(lstDfs, str)
+```
+
+```{r }
 save(file = paste0(params$outputDir, params$fileStem, ".rda")
-     , list = c(lstPlots, lstDfs, lstFits))
+     , list = c(lstDfs, lstPlots))
 ```

@@ -1,10 +1,10 @@
 ---
-title: {{ GATHER_TITLE }}
+title: {{{ TITLE }}}
 params: 
   inputDir: "gather/"
   thisDir:  "gather/"
   outputDir: "gathered/"
-  fileStem: {{ GATHER_STEM }}
+  fileStem: {{{ FILE_STEM }}}
 ---
 
 ```{r KnitrOpts, echo=FALSE}
@@ -12,11 +12,17 @@ knitr::opts_knit$set(root.dir = normalizePath('../'))
 knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
 ```
 
+```{r}
 Gather some data!
+```
+
+```{r CollectDataFrames}
+lstDfs <- ls(pattern = "df")
+lapply(lstDfs, str)
+lapply(lstDfs, summary)
+```
 
 ```{r Save}
-lstDfs <- ls(pattern = "df")
-
 save(file = paste0(params$outputDir, params$fileStem, ".rda")
-     , list = c(lstPlots, lstDfs, lstFits))
+     , list = lstDfs)
 ```
