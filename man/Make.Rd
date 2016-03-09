@@ -2,27 +2,14 @@
 % Please edit documentation in R/Make.R
 \name{Make}
 \alias{Make}
-\title{Create a new analysis}
+\title{Run the make command}
 \usage{
-Make(path)
+Make(target)
 }
 \arguments{
-\item{path}{A character variable indicating the name of the project to create}
-
-\item{packrat}{Boolean indicating whether or not packrat should be used. Default is TRUE.}
-
-\item{RStudio}{Boolean indicating whether or not to create an RStudio project. Default is TRUE.}
-
-\item{git}{Boolean indicating whether to initialize a new git repository. Default is TRUE.}
-
-\item{overwrite}{Overwrite the directory if it already exists. Default is FALSE.}
-
-\item{createNewDirectory}{Create a new directory? Default is TRUE.}
-}
-\value{
-NewAnalysis will invisibly return the name of the project.
+\item{title}{Title of the Gather document}
 }
 \description{
-Create a new analysis
+Run the make command
 }
 

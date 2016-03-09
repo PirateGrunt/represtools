@@ -9,11 +9,13 @@
 #'
 #' @return NewResearch will invisibly return the name of the project.
 #'
+#' @export
+#'
 NewResearch <- function(path = "."
                         , RStudio = TRUE
                         , git = TRUE
                         , packrat = TRUE
-                        , useExistingDirectory = TRUE){
+                        , useExistingDirectory = FALSE){
 
   # If we're not creating a new directory, we must sit under a parent. To get the parent
   # name, we have to temporarily switch to that directory. This allows us to get the base name
@@ -26,7 +28,7 @@ NewResearch <- function(path = "."
     }
 
     if (!dir.exists(path)){
-      stop ("The path you've entered does not exist. Did you mean to set createNewDirectory to TRUE?")
+      stop ("The path you've entered does not exist. Did you mean to set useExistingDirectory to FALSE?")
     }
   }
 
@@ -93,12 +95,6 @@ packageEnv <- new.env()
 packageEnv$researchDir <- path.expand("~")
 packageEnv$researchName <- ""
 
-#' ResearchDir
-#'
-#' @return The current research directory. The default is the home directory
-#'
-#' @details This will change the working directory to the research project root.
-#' @export
 OpenResearch <- function(path){
 
   if (missing(path)){

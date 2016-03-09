@@ -2,7 +2,7 @@
 % Please edit documentation in R/Tools.R
 \name{GetSQL}
 \alias{GetSQL}
-\title{Create a new analysis}
+\title{Read a SQL file}
 \usage{
 GetSQL(filename)
 }
@@ -13,6 +13,6 @@ GetSQL(filename)
 String
 }
 \description{
-Create a new analysis
+Read a SQL file
 }
 

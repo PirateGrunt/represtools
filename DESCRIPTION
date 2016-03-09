@@ -1,10 +1,8 @@
 Package: represtools
 Title: Automates basic analytic workflow
-Version: 0.1.1
 Authors@R: person("Brian", "Fannin", email = "FanninQED@eYahoo.com", role = c("aut", "cre"))
-Description: This package will create directories and analysis files which follow a particular analysis workflow.
-The flow is meant to be modular, robust and efficient. Only those steps which must be performed are carried out. If downstream
-steps depend precendents which change, the downstream steps will repeat.
+Version: 0.1.1
+Description: This is a description
 Depends:
     R (>= 3.2.0)
 License: GPL (>= 3)
@@ -15,5 +13,4 @@ Suggests:
     RODBC,
     DBI,
     knitr
-VignetteBuilder: knitr
 RoxygenNote: 5.0.1
