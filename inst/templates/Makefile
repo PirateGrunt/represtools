@@ -94,12 +94,6 @@ $(PRESENTED_DIR)%.rda:$(PRESENT_DIR)%.Rmd $(ANALYZED)
 ##==================================================
 
 clean:
-	rm -fv $(GATHERED)
-	rm -fv $(COOKED)
-	rm -fv $(ANALYZED)
-	rm -fv $(PRESENTED)
-
-clean_cooked:
 	rm -fv $(COOKED_DIR)/*
 	rm -fv $(ANALYZED_DIR)/*
 	rm -fv $(PRESENTED_DIR)/*
