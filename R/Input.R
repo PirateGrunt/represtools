@@ -1,3 +1,4 @@
+#' @title LoadInput
 #' @export
 #'
 #' @name LoadInput

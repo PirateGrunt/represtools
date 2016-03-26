@@ -21,7 +21,7 @@ NamesToObjects <- function(x, envir){
 
     nonChar <- lapply(x, typeof)
     nonChar <- nonChar[nonChar != "character"]
-    if (length(nonchar) != 0){
+    if (length(nonChar) != 0){
       warning("Some non-character elements in x. These will be converted into characters.")
     }
   } else {

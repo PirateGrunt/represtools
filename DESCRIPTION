@@ -2,7 +2,7 @@ Package: represtools
 Title: Automates basic analytic workflow
 Authors@R: person("Brian", "Fannin", email = "FanninQED@eYahoo.com", role = c("aut", "cre"))
 Version: 0.1.1
-Description: This is a description
+Description: represtools automates creation of analysis directory structure. There are Rmd skeletons which encapsulate typical analytic workflow steps.
 Depends:
     R (>= 3.2.0)
 License: GPL (>= 3)
