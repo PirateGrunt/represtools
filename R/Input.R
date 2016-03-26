@@ -3,9 +3,11 @@
 #'
 #' @name LoadInput
 #'
+#' @param params A list of parameters. Should include the named items inputDir and inputfiles
+#'
 #' @return Character vector of names of loaded objects
 #'
-#'
+#' @description Load files from a defined input directory and set of files
 LoadInput <- function(params){
 
   if (setdiff(c("inputDir", "inputFiles"), names(params))){

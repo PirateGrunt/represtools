@@ -4,8 +4,7 @@
 #' @param RStudio Boolean indicating whether or not to create an RStudio project. Default is TRUE.
 #' @param git Boolean indicating whether to initialize a new git repository. Default is TRUE.
 #' @param packrat Boolean indicating whether or not packrat should be used. Default is TRUE.
-#' @param overwrite Overwrite the directory if it already exists. Default is FALSE.
-#' @param createNewDirectory Create a new directory? Default is TRUE.
+#' @param useExistingDirectory Overwrite the directory if it already exists. Default is FALSE.
 #'
 #' @return NewResearch will invisibly return the name of the project.
 #'

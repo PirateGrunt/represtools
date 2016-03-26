@@ -10,8 +10,6 @@ Gather(fileStem, title)
 \item{fileStem}{The file stem}
 
 \item{title}{Title of the Gather document}
-
-\item{inputFiles}{A vector of files to load}
 }
 \description{
 Create a gather file

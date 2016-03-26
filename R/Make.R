@@ -1,6 +1,6 @@
 #' Run the make command
 #'
-#' @param title Title of the Gather document
+#' @param target The make target to run
 #'
 #' @return NULL
 #' @export
