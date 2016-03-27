@@ -1,9 +1,11 @@
+#'
+#' Load data from input files
+#'
 #' @export
 #'
 #' @name LoadInput
 #'
 #' @return Character vector of names of loaded objects
-#'
 #'
 LoadInput <- function(params){
 
