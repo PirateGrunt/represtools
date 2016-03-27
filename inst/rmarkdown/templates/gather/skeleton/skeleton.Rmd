@@ -16,13 +16,12 @@ knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
 # Gather some data!
 ```
 
-```{r CollectDataFrames}
-lstDfs <- ls(pattern = "df")
-lapply(lstDfs, str)
-lapply(lstDfs, summary)
+```{r GatherObjects}
+lstObjects <- represtools::GatherObjects()
+represtools::DescribeObjects(lstObjects)
 ```
 
 ```{r Save}
-save(file = paste0(params$outputDir, params$fileStem, ".rda")
-     , list = lstDfs)
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
 ```

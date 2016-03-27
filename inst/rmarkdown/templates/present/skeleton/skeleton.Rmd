@@ -16,10 +16,7 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, resu
 ```
 
 ```{r Load, results='hide'}
-loadFiles <- paste0(params$inputDir, params$inputFiles, ".rda")
-lapply(loadFiles, load, .GlobalEnv)
-loadedObjects <- ls()
-loadedObjects <- loadedObjects[loadedObjects != "params"]
+loadedObjects <- represtools::LoadInput(params)
 ```
 
 ```{r}
@@ -30,7 +27,7 @@ loadedObjects <- loadedObjects[loadedObjects != "params"]
 allGood <- TRUE
 
 if (allGood) {
-  save(file = paste0(params$outputDir, params$fileStem, ".rda")
-     , list = allGood)
+  save(file = represtools::OutputFile(params)
+     , list = lstObjects)
 }
 ```

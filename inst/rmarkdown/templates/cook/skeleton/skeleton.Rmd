@@ -22,15 +22,12 @@ loadedObjects <- represtools::LoadInput(params)
 # Cook some data!
 ```
 
-```{r Save}
+```{r GatherObjects}
 lstObjects <- represtools::GatherObjects(pattern = c("df", "plt"), ignore = loadedObjects)
-```
-
-```{r}
 represtools::DescribeObjects(lstObjects, c(str, summary))
 ```
 
-```{r }
-save(file = paste0(params$outputDir, params$fileStem, ".rda")
-     , list = c(lstDfs, lstPlots))
+```{r Save}
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
 ```
