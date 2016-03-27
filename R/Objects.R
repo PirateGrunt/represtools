@@ -14,6 +14,7 @@
 #'
 NamesToObjects <- function(x, envir){
 
+  if (missing(envir)) envir <- globalenv()
   x <- unique(x)
 
   if (is.list(x)){
@@ -32,8 +33,9 @@ NamesToObjects <- function(x, envir){
 
   x <- as.character(x)
 
-  obj <- lapply(x, get0)
-  validObjects <- !is.null(obj)
+  obj <- lapply(x, get0, envir = envir)
+  validObjects <- sapply(obj, is.null)
+  validObjects <- !validObjects
   obj <- obj[validObjects]
 
   names(obj) <- x[validObjects]
