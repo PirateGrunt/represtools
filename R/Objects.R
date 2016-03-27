@@ -33,7 +33,10 @@ NamesToObjects <- function(x, envir){
   x <- as.character(x)
 
   obj <- lapply(x, get0)
-  obj <- obj[!is.null(obj)]
+  validObjects <- !is.null(obj)
+  obj <- obj[validObjects]
+
+  names(obj) <- x[validObjects]
 
   obj
 
@@ -48,6 +51,10 @@ NamesToObjects <- function(x, envir){
 #' @param FUNS the functions which will describe the objects
 DescribeObjects <- function(objects, FUNS){
 
+  if (typeof(objects) == "character"){
+    objects <- NamesToObjects(objects)
+  }
+
   if (typeof(objects) != "list") objects <- as.list(objects)
   if (typeof(FUNS) != "list") FUNS <- as.list(FUNS)
 
@@ -57,4 +64,15 @@ DescribeObjects <- function(objects, FUNS){
       if (!is.null(result)) print(result)
     }
   }
+}
+
+#'
+#' Gather objects
+#'
+#' @export
+#'
+#' @param patterns A vector of patterns
+#'
+GatherObjects <- function(patterns = c("^df", "^plt", "^fit")){
+  lstObjects <- ls()
 }
