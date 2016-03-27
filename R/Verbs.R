@@ -1,3 +1,5 @@
+
+#' @importFrom whisker whisker.render
 CreateStepFile <- function(step, fileStem, title, inputFiles, outputFormat){
 
   if (missing(fileStem) & missing(title)) stop("Either fileStem or title argument must be present.")
@@ -28,7 +30,6 @@ CreateStepFile <- function(step, fileStem, title, inputFiles, outputFormat){
 #' Create a gather file
 #'
 #' @param fileStem The file stem
-#' @param inputFiles A vector of files to load
 #' @param title Title of the Gather document
 #'
 #' @return NULL

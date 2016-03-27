@@ -16,9 +16,7 @@ NewResearch(path = ".", RStudio = TRUE, git = TRUE, packrat = TRUE,
 
 \item{packrat}{Boolean indicating whether or not packrat should be used. Default is TRUE.}
 
-\item{overwrite}{Overwrite the directory if it already exists. Default is FALSE.}
-
-\item{createNewDirectory}{Create a new directory? Default is TRUE.}
+\item{useExistingDirectory}{Overwrite the directory if it already exists. Default is FALSE.}
 }
 \value{
 NewResearch will invisibly return the name of the project.

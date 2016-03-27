@@ -7,7 +7,7 @@
 Make(target)
 }
 \arguments{
-\item{title}{Title of the Gather document}
+\item{target}{The make target to run}
 }
 \description{
 Run the make command

@@ -2,8 +2,12 @@
 
 export(Analyze)
 export(Cook)
+export(DescribeObjects)
 export(Gather)
 export(GetSQL)
+export(LoadInput)
 export(Make)
+export(NamesToObjects)
 export(NewResearch)
 export(Present)
+importFrom(whisker,whisker.render)

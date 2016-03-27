@@ -21,7 +21,7 @@ NamesToObjects <- function(x, envir){
 
     nonChar <- lapply(x, typeof)
     nonChar <- nonChar[nonChar != "character"]
-    if (length(nonchar) != 0){
+    if (length(nonChar) != 0){
       warning("Some non-character elements in x. These will be converted into characters.")
     }
   } else {
@@ -43,6 +43,9 @@ NamesToObjects <- function(x, envir){
 #' Describe the objects
 #'
 #' @export
+#'
+#' @param objects The objects to be described
+#' @param FUNS the functions which will describe the objects
 DescribeObjects <- function(objects, FUNS){
 
   if (typeof(objects) != "list") objects <- as.list(objects)
