@@ -1,0 +1,25 @@
+# Dependencies
+markdown:         Kramdown
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            represtools
+tagline:          'Reproducible research tools'
+description:      'Reproducible research tools'
+url:              http://pirategrunt.github.io/represtools/
+baseurl:          /represtools
+theme:            Cerulean
+
+author:
+  name:           'Brian A. Fannin'
+  url:            https://PirateGrunt.com
+
+paginate:         5
+
+# Custom vars
+version:          1.0.0
+
+github:
+  repo:           https://github.com/PirateGrunt/represtools

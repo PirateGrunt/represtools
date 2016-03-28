@@ -1,0 +1,29 @@
+<!-- Sidebar code based on view-source:http://getbootstrap.com/examples/dashboard/-->
+<!--div class="container-fluid">
+  <div class="row">
+    <div class="col-left sidebar">
+      <h1><a href="{{ site.baseurl }}">{{ site.title }}</a></h1>
+      <p class="lead">{{ site.description }}</p>
+      <ul class="nav nav-sidebar">
+        <li><a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" 
+            href="{{ site.baseurl }}">Home</a></li>
+  
+        {% comment %}
+          The code below dynamically generates a sidebar nav of pages with `layout: page` in the 
+          front-matter. See readme for usage.
+        {% endcomment %}
+  
+        {% assign pages_list = site.pages %}
+        {% for node in pages_list %}
+          {% if node.title != null %}
+            {% if node.layout == "page" %}
+              <li><a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" 
+                 href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a></li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  <!--/div>
+</div-->
+  

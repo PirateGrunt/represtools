@@ -1,8 +1,36 @@
-.Rproj.user
+# Gemfiles
+Gemfile
+Gemfile.lock
+
+# History files
 .Rhistory
-.RData
-inst/doc
-vignettes/baseball
-vignettes/*.html
-vignettes/*.md
-vignettes/*.R
+*.Rdata
+
+# Example code in package build process
+*-Ex.R
+.Rproj.user
+
+_site
+
+# Tex files
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.aux
+*.vrb
+*.tex
+
+*.doc*
+
+*.pdf
+*.tex
+*.RData
+*.RData
+*.RData
+*.tex
+
+*.html
+!_includes/*.html
+!_layouts/*.html

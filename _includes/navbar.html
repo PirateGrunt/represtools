@@ -1,0 +1,28 @@
+<h1><a href="{{ site.url }}{{ site.baseurl }}">{{ site.title }}</a></h1>
+
+<p class="lead">{{ site.description }}</p>
+
+<ul class="nav">
+  
+  {% assign sorted_pages = site.pages | sort:"order" %}
+  
+  {% for node in sorted_pages %}
+    <li>
+      {% if node.title != null %}
+        {% if node.layout == "page" %}
+          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
+        {% endif %}
+      {% endif %}
+    </li>
+  {% endfor %}
+  
+</ul>
+
+<p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
+
+<!-- 
+<a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a>
+<a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a>
+<span class="sidebar-nav-item">Currently v{{ site.version }}</span>
+
+-->
