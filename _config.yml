@@ -8,6 +8,7 @@ permalink:        pretty
 title:            represtools
 tagline:          'Reproducible research tools'
 description:      'Reproducible research tools'
+brand:            'represtools'
 url:              http://pirategrunt.github.io/represtools/
 baseurl:          /represtools
 theme:            Cerulean
