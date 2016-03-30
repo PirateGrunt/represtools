@@ -26,7 +26,7 @@ LoadInput <- function(params){
   loadedObjects <- ls(envir = .GlobalEnv)
   replacedObjects <- intersect(loadedObjects, currentObjects)
   newObjects <- setdiff(loadedObjects, currentObjects)
-  loadedObjects <- unique(newObjects & replacedObjects)
+  loadedObjects <- unique(c(newObjects, replacedObjects))
 
   loadedObjects
 
