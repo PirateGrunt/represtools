@@ -10,7 +10,9 @@
 #' @description Load files from a defined input directory and set of files
 LoadInput <- function(params){
 
-  if (setdiff(c("inputDir", "inputFiles"), names(params))){
+  paramElements <- intersect(c("inputDir", "inputFiles"), names(params))
+
+  if (length(paramElements) != 2){
     stop ("Missing inputDir or inputFiles from params.")
   }
 
@@ -19,8 +21,4 @@ LoadInput <- function(params){
   loadedObjects <- ls()
   loadedObjects <- loadedObjects[loadedObjects != "params"]
   loadedObjects
-}
-
-NamesToObjects <- function(lst){
-
 }
