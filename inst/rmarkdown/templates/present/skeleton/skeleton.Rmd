@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, resu
 ```
 
 ```{r Load, results='hide'}
-loadedObjects <- represtools::LoadInput(params)
+loadedObjects <- represtools::LoadObjects(params)
 ```
 
 ```{r}

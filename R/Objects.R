@@ -1,3 +1,36 @@
+#' @title LoadObjects
+#' @export
+#'
+#' @name LoadObjects
+#'
+#' @param params A list of parameters. Should include the named items inputDir and inputFiles
+#' @param loadFiles A list of
+#'
+#' @return Character vector of names of loaded objects
+#'
+#' @description Load objects from a defined input directory and set of files.
+#' Objects are loaded into the Global environment.
+LoadObjects <- function(params, loadFiles){
+
+  if (!missing(params)) {
+    paramElements <- intersect(c("inputDir", "inputFiles"), names(params))
+
+    if (length(paramElements) != 2){
+      stop ("Missing inputDir or inputFiles from params.")
+    }
+
+    loadFiles <- paste0(params$inputDir, params$inputFiles, ".rda")
+
+  }
+
+  strResult <- lapply(loadFiles, load, .GlobalEnv)
+
+  loadedObjects <- unlist(strResult)
+
+  loadedObjects
+
+}
+
 #'
 #' Return a list of named objects
 #'
