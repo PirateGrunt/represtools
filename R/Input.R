@@ -7,7 +7,8 @@
 #'
 #' @return Character vector of names of loaded objects
 #'
-#' @description Load files from a defined input directory and set of files
+#' @description Load objects from a defined input directory and set of files.
+#' Objects are loaded into the Global environment.
 LoadInput <- function(params){
 
   paramElements <- intersect(c("inputDir", "inputFiles"), names(params))
@@ -17,8 +18,16 @@ LoadInput <- function(params){
   }
 
   loadFiles <- paste0(params$inputDir, params$inputFiles, ".rda")
+
+  currentObjects <- ls(envir = .GlobalEnv)
+
   lapply(loadFiles, load, .GlobalEnv)
-  loadedObjects <- ls()
-  loadedObjects <- loadedObjects[loadedObjects != "params"]
+
+  loadedObjects <- ls(envir = .GlobalEnv)
+  replacedObjects <- intersect(loadedObjects, currentObjects)
+  newObjects <- setdiff(loadedObjects, currentObjects)
+  loadedObjects <- unique(newObjects & replacedObjects)
+
   loadedObjects
+
 }
