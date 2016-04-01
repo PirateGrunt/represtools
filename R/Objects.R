@@ -107,7 +107,20 @@ DescribeObjects <- function(objects, FUNS){
 #' @export
 #'
 #' @param patterns A vector of patterns
+#' @param env An enviroment. If missing, the global environment will be used.
 #'
-GatherObjects <- function(patterns = c("^df", "^plt", "^fit")){
-  lstObjects <- ls()
+GatherObjects <- function(patterns = c("^df", "^plt", "^fit"), env){
+
+  if (missing(env)) env <- .GlobalEnv
+
+  patterns <- unique(patterns)
+
+  strObjects <- list(length(patterns))
+  for (i in seq_along(patterns)){
+    strObjects[[i]] <- ls(pattern = patterns[i], envir = env)
+  }
+
+  strObjects <- unlist(strObjects)
+
+  strObjects
 }
