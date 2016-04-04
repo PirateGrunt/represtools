@@ -5,11 +5,6 @@ ConfirmExe <- function(exe){
 
 }
 
-#' Confirm existence of Make
-#'
-#' @return Boolean indicating
-#'
-#'
 ConfirmMake <- function(){
   gotMake <- ConfirmExe("make")
 }
