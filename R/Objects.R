@@ -3,14 +3,25 @@
 #'
 #' @name LoadObjects
 #'
-#' @param params A list of parameters. Should include the named items inputDir and inputFiles
-#' @param loadFiles A list of
+#' @param params A list of parameters. Should include the named items inputDir and inputFiles.
+#' @param env An environment in which to load objects. Defaults to the global environment.
+#' @param loadFiles A character vector of files containing saved data.
 #'
-#' @return Character vector of names of loaded objects
+#' @return Character vector containint the names of loaded objects.
 #'
-#' @description Load objects from a defined input directory and set of files.
-#' Objects are loaded into the Global environment.
-LoadObjects <- function(params, loadFiles){
+#' @description This function will load a set of objects stored in .rda files. By default, objects are
+#' loaded into the Global environment.
+#'
+#' @details The params object is defined within an RMarkdown file and contains named items "inputDir" and "inputFiles".
+#' As an expedient, one may pass a vector of filenames. This vector will only be used if the params argument has been
+#' omitted.
+#'
+#' @examples
+#' \dontrun{
+#' loadedObjects <- LoadObjects(params)
+#' }
+#'
+LoadObjects <- function(params, env = .GlobalEnv, loadFiles){
 
   if (!missing(params)) {
     paramElements <- intersect(c("inputDir", "inputFiles"), names(params))
@@ -23,7 +34,9 @@ LoadObjects <- function(params, loadFiles){
 
   }
 
-  strResult <- lapply(loadFiles, load, .GlobalEnv)
+  if (missing (env) ) env <- .GlobalEnv
+
+  strResult <- lapply(loadFiles, load, env)
 
   loadedObjects <- unlist(strResult)
 
