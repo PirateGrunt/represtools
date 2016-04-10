@@ -4,10 +4,12 @@
 \alias{GatherObjects}
 \title{Gather objects}
 \usage{
-GatherObjects(patterns = c("^df", "^plt", "^fit"))
+GatherObjects(patterns = c("^df", "^plt", "^fit"), env)
 }
 \arguments{
 \item{patterns}{A vector of patterns}
+
+\item{env}{An enviroment. If missing, the global environment will be used.}
 }
 \description{
 Gather objects

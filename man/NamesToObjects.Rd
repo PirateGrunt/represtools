@@ -19,5 +19,17 @@ Returns a list of the objects named in x
 }
 \details{
 Return a list of named objects
+
+x is given as either a character vector containing names of objects to return, or
+a list. If x is a list, it will first be converted to character. If objects do not exist, no error
+or warning will be generated.
+}
+\examples{
+\dontrun{
+mojo <- 4
+gonzo <- "Moe"
+lstObjects <- NamesToObjects(c("mojo", "gonzo"))
+}
+
 }
 

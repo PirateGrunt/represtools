@@ -7,11 +7,25 @@
 DescribeObjects(objects, FUNS)
 }
 \arguments{
-\item{objects}{The objects to be described}
+\item{objects}{A list of objects to be described}
 
 \item{FUNS}{the functions which will describe the objects}
 }
 \description{
-Describe the objects
+This will apply functions to a vector of objects.
+}
+\details{
+This may be used to quickly summarize a set of objects.
+
+x may be given as a character vector or a list.
+}
+\examples{
+\dontrun{
+myFit1 <- lm(myData, y ~ x1 + x2)
+myFit2 <- lm(myData, y ~ x3)
+
+DesribeObjects(list(myFit1, myFit2), broom)
+}
+
 }
 

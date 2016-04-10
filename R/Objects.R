@@ -51,12 +51,23 @@ LoadObjects <- function(params, env = .GlobalEnv, loadFiles){
 #'
 #' @description Returns a list of the objects named in x
 #'
+#' @details x is given as either a character vector containing names of objects to return, or
+#' a list. If x is a list, it will first be converted to character. If objects do not exist, no error
+#' or warning will be generated.
+#'
 #' @param x Vector or list of named objects
 #' @param envir Environment in which to search
 #'
 #' @return A list of objects
 #'
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' mojo <- 4
+#' gonzo <- "Moe"
+#' lstObjects <- NamesToObjects(c("mojo", "gonzo"))
+#' }
 #'
 NamesToObjects <- function(x, envir){
 
@@ -95,8 +106,23 @@ NamesToObjects <- function(x, envir){
 #'
 #' @export
 #'
-#' @param objects The objects to be described
+#' @param objects A list of objects to be described
 #' @param FUNS the functions which will describe the objects
+#'
+#' @description This will apply functions to a vector of objects.
+#'
+#' @details This may be used to quickly summarize a set of objects.
+#'
+#' x may be given as a character vector or a list.
+#'
+#' @examples
+#' \dontrun{
+#' myFit1 <- lm(myData, y ~ x1 + x2)
+#' myFit2 <- lm(myData, y ~ x3)
+#'
+#' DesribeObjects(list(myFit1, myFit2), broom)
+#' }
+#'
 DescribeObjects <- function(objects, FUNS){
 
   if (typeof(objects) == "character"){
@@ -121,6 +147,8 @@ DescribeObjects <- function(objects, FUNS){
 #'
 #' @param patterns A vector of patterns
 #' @param env An enviroment. If missing, the global environment will be used.
+#'
+#' @details This will collect objects based on a vector of character patterns.
 #'
 GatherObjects <- function(patterns = c("^df", "^plt", "^fit"), env){
 
