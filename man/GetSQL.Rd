@@ -4,10 +4,12 @@
 \alias{GetSQL}
 \title{Read a SQL file}
 \usage{
-GetSQL(filename)
+GetSQL(filename, warn = FALSE)
 }
 \arguments{
 \item{filename}{A character variable with a filename}
+
+\item{warn}{Warn if there is a missing final end of line. Default is TRUE}
 }
 \value{
 String

@@ -14,4 +14,7 @@ GatherObjects(patterns = c("^df", "^plt", "^fit"), env)
 \description{
 Gather objects
 }
+\details{
+This will collect objects based on a vector of character patterns.
+}
 
