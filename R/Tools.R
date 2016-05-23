@@ -8,7 +8,7 @@
 #' @export
 GetSQL <- function(filename, warn = FALSE){
   fileConn <- file(filename, open = "r")
-  strSQL = readLines(fileConn, warn)
+  strSQL = readLines(fileConn, warn = warn)
   close(fileConn)
 
   strSQL <- paste(strSQL, collapse=" ")
