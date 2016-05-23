@@ -1,7 +1,7 @@
 library(represtools)
 context("Objects")
 
-test_that("Objects", {
+test_that("Names", {
 
   myEnv <- new.env()
   myEnv$mojo <- 1
@@ -43,5 +43,20 @@ test_that("Load", {
 
   unlink(myfile)
   unlink(myfile2)
+
+})
+
+test_that("Describe", {
+  mojo <- 1
+  gonzo <- "abc"
+
+  testthat::expect_output(represtools::DescribeObjects(list(mojo), list(str))
+                          , "num 1")
+
+  testthat::expect_output(represtools::DescribeObjects(list(mojo), str)
+                          , "num 1")
+
+  testthat::expect_output(represtools::DescribeObjects(list(mojo), "str")
+                          , "num 1")
 
 })

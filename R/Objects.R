@@ -125,12 +125,16 @@ NamesToObjects <- function(x, envir){
 #'
 DescribeObjects <- function(objects, FUNS){
 
+  if (missing(FUNS)){
+    FUNS <- list(str, summary)
+  }
+
   if (typeof(objects) == "character"){
     objects <- NamesToObjects(objects)
   }
 
   if (typeof(objects) != "list") objects <- as.list(objects)
-  if (typeof(FUNS) != "list") FUNS <- as.list(FUNS)
+  if (typeof(FUNS) != "list") FUNS <- list(FUNS)
 
   for (iObj in seq_along(objects)){
     for (iFun in seq_along(FUNS)){
