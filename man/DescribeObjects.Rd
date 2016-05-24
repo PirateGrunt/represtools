@@ -2,7 +2,7 @@
 % Please edit documentation in R/Objects.R
 \name{DescribeObjects}
 \alias{DescribeObjects}
-\title{Describe the objects}
+\title{I'm throwing in the towel on this function. I'm just not clear on the behavior that I'd like:}
 \usage{
 DescribeObjects(objects, FUNS, env)
 }
@@ -17,7 +17,18 @@ DescribeObjects(objects, FUNS, env)
 This will apply functions to a vector of objects.
 }
 \details{
-This may be used to quickly summarize a set of objects.
+1. Given a vector of objects, apply a vector of functions. This is most common when I want to
+   apply both `str` and `summary` to a data frame.
+
+2. How is that implemented in practice? I either want the output printed or I want to capture the
+   output to print later, but I'm not sure. The easiest option would be to print everything.
+
+3. And that's what I'll do.
+
+Describe the objects
+
+This may be used to quickly summarize a set of objects. Note that functions are called for their
+side effects of printing output
 
 x may be given as a character vector or a list.
 }
@@ -26,7 +37,7 @@ x may be given as a character vector or a list.
 myFit1 <- lm(myData, y ~ x1 + x2)
 myFit2 <- lm(myData, y ~ x3)
 
-DesribeObjects(list(myFit1, myFit2), broom)
+DesribeObjects(list(myFit1, myFit2), broom::tidy)
 }
 
 }

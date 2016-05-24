@@ -127,6 +127,7 @@ NamesToObjects <- function(x, envir){
 #'
 #' x may be given as a character vector or a list.
 #'
+#'
 #' @examples
 #' \dontrun{
 #' myFit1 <- lm(myData, y ~ x1 + x2)
@@ -140,7 +141,7 @@ DescribeObjects <- function(objects, FUNS, env){
   if (missing(env)) env <- .GlobalEnv
 
   if (missing(FUNS)){
-    FUNS <- list(str)
+    FUNS <- list(utils::str)
   }
 
   # if (typeof(objects) == "character"){

@@ -6,6 +6,7 @@ Description: represtools automates creation of analysis directory structure. The
 Depends:
     R (>= 3.2.0)
 License: GPL (>=3)
+SystemRequirements: GNU make
 LazyData: true
 Imports:
   whisker,
@@ -14,7 +15,6 @@ Imports:
   rstudioapi (>= 0.5)
 Suggests:
     testthat,
-    Lahman,
     RODBC,
     DBI,
     knitr

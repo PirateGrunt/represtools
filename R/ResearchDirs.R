@@ -60,7 +60,7 @@ NewResearch <- function(path = "."
 
 NewMakefile <- function(path){
 
-  makefile <- system.file("templates", "Makefile", package = "represtools")
+  makefile <- system.file("templates", "Bakefile", package = "represtools")
   makefile <- readLines(makefile)
 
   outFile <- file(file.path(path, "Makefile"))
