@@ -101,6 +101,16 @@ NamesToObjects <- function(x, envir){
 
 }
 
+#' I'm throwing in the towel on this function. I'm just not clear on the behavior that I'd like:
+#'
+#' 1. Given a vector of objects, apply a vector of functions. This is most common when I want to
+#'    apply both `str` and `summary` to a data frame.
+#'
+#' 2. How is that implemented in practice? I either want the output printed or I want to capture the
+#'    output to print later, but I'm not sure. The easiest option would be to print everything.
+#'
+#' 3. And that's what I'll do.
+#'
 #'
 #' Describe the objects
 #'
@@ -108,10 +118,12 @@ NamesToObjects <- function(x, envir){
 #'
 #' @param objects A list of objects to be described
 #' @param FUNS the functions which will describe the objects
+#' @param env An enviroment. If missing, the global environment will be used.
 #'
 #' @description This will apply functions to a vector of objects.
 #'
-#' @details This may be used to quickly summarize a set of objects.
+#' @details This may be used to quickly summarize a set of objects. Note that functions are called for their
+#' side effects of printing output
 #'
 #' x may be given as a character vector or a list.
 #'
@@ -120,32 +132,51 @@ NamesToObjects <- function(x, envir){
 #' myFit1 <- lm(myData, y ~ x1 + x2)
 #' myFit2 <- lm(myData, y ~ x3)
 #'
-#' DesribeObjects(list(myFit1, myFit2), broom)
+#' DesribeObjects(list(myFit1, myFit2), broom::tidy)
 #' }
 #'
-DescribeObjects <- function(objects, FUNS){
+DescribeObjects <- function(objects, FUNS, env){
+
+  if (missing(env)) env <- .GlobalEnv
 
   if (missing(FUNS)){
-    FUNS <- list(str, summary)
+    FUNS <- list(str)
   }
 
-  if (typeof(objects) == "character"){
-    objects <- NamesToObjects(objects)
-  }
+  # if (typeof(objects) == "character"){
+  #   objects <- NamesToObjects(objects)
+  # }
 
-  if (typeof(objects) != "list") objects <- as.list(objects)
+  # if (typeof(objects) != "list") objects <- as.list(objects)
+
+  if(typeof(FUNS) == "character") FUNS <- as.list(FUNS)
   if (typeof(FUNS) != "list") FUNS <- list(FUNS)
 
-  for (iObj in seq_along(objects)){
-    for (iFun in seq_along(FUNS)){
-      result <- do.call(FUNS[[iFun]], objects[iObj])
-      if (!is.null(result)) print(result)
-    }
+  # names(objects) <- "object"
+
+  # result <- list(length(FUNS))
+
+  for (iFun in seq_along(FUNS)){
+    # for (iObj in seq_along(objects)){
+
+      lapply(objects, FUNS[[iFun]])
+
+      # argName <- formalArgs(FUNS[[iFun]])[1]
+      # names(objects) <- argName
+      # result[] <- do.call(FUNS[[iFun]], objects[iObj], envir = env)
+      # if (!is.null(result)) print(result)
+    # }
   }
+
+  return(NULL)
 }
 
 #'
-#' Gather objects
+#' List objects
+#'
+#' Form a character vector of the names of objects, based on patterns.
+#'
+#' @return character vector
 #'
 #' @export
 #'
@@ -154,7 +185,7 @@ DescribeObjects <- function(objects, FUNS){
 #'
 #' @details This will collect objects based on a vector of character patterns.
 #'
-GatherObjects <- function(patterns = c("^df", "^plt", "^fit"), env){
+ListObjects <- function(patterns = c("^df", "^plt", "^fit"), env){
 
   if (missing(env)) env <- .GlobalEnv
 

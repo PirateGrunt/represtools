@@ -4,12 +4,14 @@
 \alias{DescribeObjects}
 \title{Describe the objects}
 \usage{
-DescribeObjects(objects, FUNS)
+DescribeObjects(objects, FUNS, env)
 }
 \arguments{
 \item{objects}{A list of objects to be described}
 
 \item{FUNS}{the functions which will describe the objects}
+
+\item{env}{An enviroment. If missing, the global environment will be used.}
 }
 \description{
 This will apply functions to a vector of objects.

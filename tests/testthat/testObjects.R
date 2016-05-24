@@ -1,6 +1,18 @@
 library(represtools)
 context("Objects")
 
+test_that("List", {
+  myEnv <- new.env()
+  myEnv$mojo <- 1
+  myEnv$gonzo <- "Monkey"
+
+  lstObjects <- represtools::ListObjects("^m", myEnv)
+
+  testthat::expect_equal(length(lstObjects), 1)
+  testthat::expect_equal(lstObjects[[1]], "mojo")
+
+})
+
 test_that("Names", {
 
   myEnv <- new.env()
@@ -58,5 +70,23 @@ test_that("Describe", {
 
   testthat::expect_output(represtools::DescribeObjects(list(mojo), "str")
                           , "num 1")
+
+  testthat::expect_output(represtools::DescribeObjects(mojo, "str")
+                          , "num 1")
+
+  expect_error(represtools::DescribeObjects(list(mojo, gonzo), str), NA)
+
+  # myEnv <- new.env()
+  # myEnv$mojo <- 1
+  # myEnv$gonzo <- "Monkey"
+  #
+  # lst <- represtools::ListObjects(c("^m", "^g"), myEnv)
+  # lst <- represtools::NamesToObjects(lst, myEnv)
+  #
+  # lapply(lst, str)
+  #
+  # mojoStr <- represtools::DescribeObjects(lst, str, myEnv)
+  #
+  # testthat::expect_equal(mojoStr, "num 1")
 
 })
