@@ -22,8 +22,8 @@ loadedObjects <- represtools::LoadObjects(params)
 # Cook some data!
 ```
 
-```{r GatherObjects}
-lstObjects <- represtools::GatherObjects(pattern = c("df", "plt"), ignore = loadedObjects)
+```{r ListObjects}
+lstObjects <- represtools::ListObjects(pattern = c("df", "plt"), ignore = loadedObjects)
 represtools::DescribeObjects(lstObjects, c(str, summary))
 ```
 

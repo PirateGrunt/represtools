@@ -22,8 +22,8 @@ loadedObjects <- represtools::LoadObjects(params)
 # Analyze some data!
 ```
 
-```{r GatherObjects}
-lstObjects <- represtools::GatherObjects()
+```{r ListObjects}
+lstObjects <- represtools::ListObjects()
 represtools::DescribeObjects(lstObjects)
 ```
 
