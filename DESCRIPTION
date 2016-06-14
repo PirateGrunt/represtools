@@ -12,7 +12,5 @@ Imports:
   whisker
 Suggests:
     testthat,
-    RODBC,
-    DBI,
     knitr
 RoxygenNote: 5.0.1

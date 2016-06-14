@@ -11,20 +11,18 @@ vignette: >
 
 ## Overview
 
-I'm a bush league analyst. Lacking any formal education, I crave structure. Without loads of brain power, I need code to recreate the replicable steps of that core structure. I need something to help me when I get lost (and I will always get lost). This package is meant to do that for me. Hopefully it provides value to you as well. 
+I'm a bush league analyst. Lacking any formal education, I crave structure. Without loads of brain power, I need code to recreate the replicable steps of that core structure. I need something to help me when I get lost (and I will always get lost). This package is meant to do that for me. Hopefully it provides value to you as well.
 
-This package may be thought of as a mashup of Reproducible Research by Gandrud and `devtools` by Hadley Wickham.
+This package may be thought of as a mashup of Reproducible Research by Gandrud and `devtools` by Hadley Wickham. The name is an homage to both.
 
 ### Guiding principals
 
-I can't hold more than a few thoughts in my head. For an analysis workflow, these are the ones that keep bubbling to the top, which suggests they may make sense. Here they are:
+I can't hold more than a few thoughts in my head. For an analysis workflow, these are the ones that keep bubbling to the top, which suggests they may make sense for me. Here they are:
 
 * Each analytic step should be modular. This means that it may work in isolation, so long as precedent data exists.
 * Any of the steps may be reproduced by another researcher. 
 * There are only four steps: gather, cook, analyze and publish. 
 * The only form of data exchange between steps is .rda.
-* Common external data sources like SQL and URL should be easy to deal with.
-* Version control is 
 
 ### The four steps of data analysis
 
@@ -57,7 +55,6 @@ represtools::Gather("Japanese")
 represtools::Cook("Japanese")
 
 represtools::Analyze("Handedness", requires = "Hitter")
-represtools::MapFlow()
 represtools::Present("On the quality of right-handed hitters.html", requires=c("Handedness"))
 
 represtools::OpenResearch("~/Documents/Projects/Baseball")
@@ -69,7 +66,6 @@ represtools::Clean()
 represtools::Make()
 
 # These three will all do the same thing
-represtools::ReCook()
 represtools::Make(target = "cooked")
 represtools::Make(clean = TRUE)
 
@@ -96,18 +92,6 @@ represtools::NewResearch("baseball", packrat = FALSE, RStudio = FALSE, git = FAL
 ```{r eval = FALSE}
 represtools::AddGitRemote()
 ```
-
-More than one analysis at a time?
-
-```{r eval = FALSE}
-represtools::OpenResearch("hockey")
-represtools::OpenResearch(c("hockey", "football"))
-
-represtools::OpenAnalyses()
-
-represtools::CloseAnalysis()
-```
-
 
 ## Gather some data
 
@@ -224,19 +208,6 @@ represtools::MakeCooked()
 represtools::Make("cooked")
 ```
 
-### 
-
-```{r eval=FALSE}
-represtools::ConfirmMake()
-# Make has been installed. You're good to go.
-
-represtools::ConfirmTeX()
-# There is a TeX installation. You're good to go.
-
-represtools::ConfirmMarkdown()
-```
-
-
 ## Questions
 
 ### Why not .rds?
@@ -245,7 +216,7 @@ For now, I'm sticking with .rda. It enables you to save more than one item in a 
 
 ### What's wrong with ProjectTemplate?
 
-The short answer is nothing. John Myles White doesn't need my help in getting more efficient at analyzing data. His structure works for him and, I'm sure, loads of other people, but it just didn't work for me. My tiny brain can't handle more than about 4 folders at a time. I struggle to understand the difference between "data" and "cache", "doc" and "reports", "lib" and "src". ProjectTemplate's philosophy seems monolithic: load all of the data, work with it and produce a single output. I like to break things into bite-size chunks and only look at whatever element of data is relevant for a certain element of analysis. I also find that gathering and Cooking tend to be steps that get reworked often, even in a later stage of analysis.
+The short answer is nothing. John Myles White doesn't need my help in getting more efficient at analyzing data. His structure works for him and, I'm sure, loads of other people. It just didn't work for me. My tiny brain can't handle more than about 4 folders at a time. I struggle to understand the difference between "data" and "cache", "doc" and "reports", "lib" and "src". ProjectTemplate's philosophy seems monolithic: load all of the data, work with it and produce a single output. I like to break things into bite-size chunks and only look at whatever element of data is relevant for a certain piece of the analysis. I also find that gathering and cooking tend to be steps that get reworked often, even in a later stage of analysis.
 
 None of this is meant as crticism. John White is loads smarter than me and he's created something very useful for people whose brains function like his. Some people like Coke. Some people like Pepsi.
 
