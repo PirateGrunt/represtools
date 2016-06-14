@@ -9,10 +9,7 @@ License: GPL (>=3)
 SystemRequirements: GNU make
 LazyData: true
 Imports:
-  whisker,
-  shiny (>= 0.13),
-  miniUI (>= 0.1.1),
-  rstudioapi (>= 0.5)
+  whisker
 Suggests:
     testthat,
     RODBC,
