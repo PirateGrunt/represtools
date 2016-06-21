@@ -59,7 +59,7 @@ Cook <- function(fileStem, inputFiles, title){
 #'
 #' @param fileStem The file stem
 #' @param inputFiles A vector of files to load
-#' @param title Title of the Cook document
+#' @param title Title of the document
 #'
 #' @return NULL
 #' @export
@@ -74,8 +74,8 @@ Analyze <- function(fileStem, inputFiles, title){
 #'
 #' @param fileStem The file stem
 #' @param inputFiles A vector of files to load
-#' @param title Title of the Cook document
-#' @param outputFormat outputFormat
+#' @param title Title of the document
+#' @param outputFormat A string indicating the outputFormat
 #'
 #' @return NULL
 
