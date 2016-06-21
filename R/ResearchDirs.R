@@ -1,3 +1,9 @@
+AtLeastOneAlphaNumeric <- function(x){
+  y <- grepl("(?!_)(\\w+)", x, perl=TRUE)
+
+  y
+}
+
 #' Create a new Research
 #'
 #' @param path A character variable indicating the name of the project to create
