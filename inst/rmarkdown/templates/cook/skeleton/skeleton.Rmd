@@ -23,8 +23,8 @@ loadedObjects <- represtools::LoadObjects(params)
 ```
 
 ```{r ListObjects}
-lstObjects <- represtools::ListObjects(pattern = c("df", "plt"), ignore = loadedObjects)
-represtools::DescribeObjects(lstObjects, c(str, summary))
+lstObjects <- represtools::ListObjects(pattern = c("df", "plt"))
+represtools::DescribeObjects(represtools::NamesToObjects(lstObjects))
 ```
 
 ```{r Save}
