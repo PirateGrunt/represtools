@@ -1,8 +1,0 @@
-gather:
-  dfPremium, Exposure.rda
-  dfExposure, Exposure.rda
-  dfLoss, Loss.rda
-process:
-  dfExposure, Exposure.rda
-  dfConsolidatedExposure, Exposure.rda
-analyze:
