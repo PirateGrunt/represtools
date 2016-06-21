@@ -6,6 +6,7 @@ Description: Reproducible research tools automates the creation of an analysis d
   pass data from one step to another.
 Authors@R: person("Brian", "Fannin", email = "FanninQED@Yahoo.com", role = c("aut", "cre"))
 Maintainer: Brian Fannin <FanninQED@Yahoo.com>
+URL: http://pirategrunt.com/represtools
 BugReports: https://github.com/PirateGrunt/represtools/issues
 Depends:
     R (>= 3.2.0)
