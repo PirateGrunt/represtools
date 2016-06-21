@@ -7,7 +7,7 @@
 #' @param env An environment in which to load objects. Defaults to the global environment.
 #' @param loadFiles A character vector of files containing saved data.
 #'
-#' @return Character vector containint the names of loaded objects.
+#' @return Character vector containing the names of loaded objects.
 #'
 #' @description This function will load a set of objects stored in .rda files. By default, objects are
 #' loaded into the Global environment.
