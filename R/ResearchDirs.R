@@ -2,8 +2,6 @@
 #'
 #' @param path A character variable indicating the name of the project to create
 #' @param RStudio Boolean indicating whether or not to create an RStudio project. Default is TRUE.
-#' @param git Boolean indicating whether to initialize a new git repository. Default is TRUE.
-#' @param packrat Boolean indicating whether or not packrat should be used. Default is TRUE.
 #' @param useExistingDirectory Overwrite the directory if it already exists. Default is FALSE.
 #'
 #' @return NewResearch will invisibly return the name of the project.
@@ -12,8 +10,6 @@
 #'
 NewResearch <- function(path = "."
                         , RStudio = TRUE
-                        , git = TRUE
-                        , packrat = TRUE
                         , useExistingDirectory = FALSE){
 
   # If we're not creating a new directory, we must sit under a parent. To get the parent
@@ -60,7 +56,7 @@ NewResearch <- function(path = "."
 
 NewMakefile <- function(path){
 
-  makefile <- system.file("templates", "Bakefile", package = "represtools")
+  makefile <- system.file("templates", "Makefile.win", package = "represtools")
   makefile <- readLines(makefile)
 
   outFile <- file(file.path(path, "Makefile"))
