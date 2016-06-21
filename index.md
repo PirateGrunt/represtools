@@ -22,6 +22,7 @@ represtools::NewResearch("Baseball")
 ```
 
 The resulting directory tree is as shown below:
+
 ```
 - Baseball/
 | - analyze/
