@@ -4,12 +4,33 @@
 \alias{Make}
 \title{Run the make command}
 \usage{
-Make(target)
+Make(target = "all", command = "", ...)
 }
 \arguments{
 \item{target}{The make target to run}
+
+\item{command}{User-supplied location of the \code{make} command}
+
+\item{...}{Additional arguments to the \code{\link[base]{system2}} function}
 }
 \description{
-Run the make command
+This will run the \code{make} program with whatever target the user selects. The default target is "all". The function works by calling
+the \code{\link[base]{system2}} function. It is presumed that an appropriate \code{make} utilty exists on the user's computer. Further
+note that the default makefile for an analysis project uses GNU extensions like wildcards.
+}
+\details{
+The function will to try to confirm
+}
+\examples{
+
+\dontrun{
+Make()
+Make("clean", command = "/usr/bin/gmake")
+Make("gather")
+Make("MyFile.rda")
+}
+}
+\seealso{
+\code{\link[base]{system2}} \code{\link[base]{system}} \code{\link[base]{Sys.which}}
 }
 

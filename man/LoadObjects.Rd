@@ -14,7 +14,7 @@ LoadObjects(params, env = .GlobalEnv, loadFiles)
 \item{loadFiles}{A character vector of files containing saved data.}
 }
 \value{
-Character vector containint the names of loaded objects.
+Character vector containing the names of loaded objects.
 }
 \description{
 This function will load a set of objects stored in .rda files. By default, objects are

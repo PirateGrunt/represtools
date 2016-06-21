@@ -11,7 +11,7 @@ Analyze(fileStem, inputFiles, title)
 
 \item{inputFiles}{A vector of files to load}
 
-\item{title}{Title of the Cook document}
+\item{title}{Title of the document}
 }
 \description{
 Create an analysis file

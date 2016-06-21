@@ -11,9 +11,9 @@ Present(fileStem, inputFiles, title, outputFormat)
 
 \item{inputFiles}{A vector of files to load}
 
-\item{title}{Title of the Cook document}
+\item{title}{Title of the document}
 
-\item{outputFormat}{outputFormat}
+\item{outputFormat}{A string indicating the outputFormat}
 }
 \description{
 Create a presentation file
