@@ -2,6 +2,9 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/PirateGrunt/represtools.svg?branch=master)](https://travis-ci.org/PirateGrunt/represtools)
 
+[![codecov](https://codecov.io/gh/PirateGrunt/represtools/branch/master/graph/badge.svg)](https://codecov.io/gh/PirateGrunt/represtools)
+
+
 # represtools
 
 Basic utility functions to support reproducible research. Based on ideas published by Christopher Gandrud. This package relies on four stages of data analysis:
