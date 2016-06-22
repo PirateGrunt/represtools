@@ -1,7 +1,6 @@
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/represtools)](http://cran.r-project.org/package=represtools)
-
 [![Travis-CI Build Status](https://travis-ci.org/PirateGrunt/represtools.svg?branch=master)](https://travis-ci.org/PirateGrunt/represtools)
-
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/represtools)](http://cran.r-project.org/package=represtools)
+[![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/represtools)](https://cran.r-project.org/package=represtools)
 [![codecov](https://codecov.io/gh/PirateGrunt/represtools/branch/master/graph/badge.svg)](https://codecov.io/gh/PirateGrunt/represtools)
 
 
