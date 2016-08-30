@@ -45,6 +45,7 @@ no_gather: $(COOKED) $(ANALYZED) $(PRESENTED)
 
 #///////////////////////////////////////////////////
 ## G A T H E R
+gather: $(GATHERED)
 $(GATHER_DIR)%.Rmd:$(GATHER_DIR)%.sql
 	@echo =============================================
 	@echo == SQL updated for $(@:.Rmd=.)
@@ -62,6 +63,7 @@ $(GATHERED_DIR)%.rda:$(GATHER_DIR)%.Rmd
 
 #///////////////////////////////////////////////////
 # C O O K
+cook: $(COOKED)
 $(COOKED_DIR)%.rda:$(COOK_DIR)%.Rmd $(GATHERED)
 	@echo =============================================
 	@echo == Working on $(<:.Rmd=.)
@@ -73,6 +75,7 @@ $(COOKED_DIR)%.rda:$(COOK_DIR)%.Rmd $(GATHERED)
 
 #///////////////////////////////////////////////////
 ## A N A L Y Z E
+analyze: $(ANALYZED)
 $(ANALYZED_DIR)%.rda:$(ANALYZE_DIR)%.Rmd $(COOKED)
 	@echo =============================================
 	@echo == Analyze $(<:.Rmd=)
@@ -84,6 +87,7 @@ $(ANALYZED_DIR)%.rda:$(ANALYZE_DIR)%.Rmd $(COOKED)
 
 #///////////////////////////////////////////////////
 ## P R E S E N T
+$present: $(PRESENTED)
 $(PRESENTED_DIR)%.rda:$(PRESENT_DIR)%.Rmd $(ANALYZED)
 	@echo =============================================
 	@echo == Working on $(<:.Rmd=)

@@ -6,3 +6,14 @@ r:
   - devel
 sudo: false
 cache: packages
+
+r_github_packages:
+  - jimhester/covr
+  - hadley/staticdocs
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'covr::coveralls()'
+
+before_deploy:
+  - R -e "staticdocs::build_site(examples = TRUE)"
