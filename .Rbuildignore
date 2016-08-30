@@ -1,4 +1,4 @@
-^.*\.Rproj$
+represtools.Rproj
 ^\.Rproj\.user$
 Notes.md
 ^\.travis\.yml$

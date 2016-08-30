@@ -48,3 +48,18 @@ test_that("Makefile exists", {
   unlink("Testing", recursive = TRUE)
   setwd(oldWD)
 })
+
+test_that("RProj exists", {
+  oldWD <- setwd(tempdir())
+  represtools::NewResearch("Testing")
+
+  testthat::expect_true(file.exists("./Testing.Rproj"))
+
+  rProjFile <- readLines("./Testing.Rproj")
+  isValid <- grepl("^Version", rProjFile)
+
+  testthat::expect_true(sum(isValid) == 1)
+
+  unlink("Testing", recursive = TRUE)
+  setwd(oldWD)
+})
