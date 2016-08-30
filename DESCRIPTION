@@ -1,5 +1,5 @@
 Package: represtools
-Version: 0.1.1
+Version: 0.1.2
 Title: Reproducible Research Tools
 Description: Reproducible research tools automates the creation of an analysis directory structure and work flow. There are R markdown
   skeletons which encapsulate typical analytic work flow steps. Functions will create appropriate modules which may
@@ -20,3 +20,4 @@ Suggests:
     knitr,
     rmarkdown
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr
