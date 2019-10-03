@@ -1,12 +1,12 @@
 Package: represtools
-Version: 0.1.2
+Version: 0.1.3
 Title: Reproducible Research Tools
 Description: Reproducible research tools automates the creation of an analysis directory structure and work flow. There are R markdown
   skeletons which encapsulate typical analytic work flow steps. Functions will create appropriate modules which may
   pass data from one step to another.
-Authors@R: person("Brian", "Fannin", email = "FanninQED@Yahoo.com", role = c("aut", "cre"))
-Maintainer: Brian Fannin <FanninQED@Yahoo.com>
-URL: http://pirategrunt.com/represtools
+Authors@R: person("Brian", "Fannin", email = "captain@pirategrunt.com", role = c("aut", "cre"))
+Maintainer: Brian Fannin <captain@pirategrunt.com>
+URL: https://pirategrunt.com/represtools/
 BugReports: https://github.com/PirateGrunt/represtools/issues
 Depends:
     R (>= 3.2.0)
