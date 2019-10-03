@@ -3,3 +3,4 @@ represtools.Rproj
 Notes.md
 ^\.travis\.yml$
 cran-comments.md
+^.*\.Rproj$
