@@ -18,4 +18,3 @@ Present(fileStem, inputFiles, title, outputFormat)
 \description{
 Create a presentation file
 }
-

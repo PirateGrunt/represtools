@@ -12,4 +12,3 @@ OutputFile(params)
 \description{
 Construct an output file from a params list.
 }
-

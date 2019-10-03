@@ -17,4 +17,3 @@ String
 \description{
 Read a SQL file
 }
-

@@ -32,4 +32,3 @@ lstObjects <- NamesToObjects(c("mojo", "gonzo"))
 }
 
 }
-

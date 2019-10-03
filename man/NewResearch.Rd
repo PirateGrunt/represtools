@@ -19,4 +19,3 @@ NewResearch will invisibly return the name of the project.
 \description{
 Create a new Research
 }
-

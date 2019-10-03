@@ -16,4 +16,3 @@ Cook(fileStem, inputFiles, title)
 \description{
 Create a cook file
 }
-

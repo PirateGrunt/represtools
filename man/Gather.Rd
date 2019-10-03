@@ -14,4 +14,3 @@ Gather(fileStem, title)
 \description{
 Create a gather file
 }
-

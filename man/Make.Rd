@@ -33,4 +33,3 @@ Make("MyFile.rda")
 \seealso{
 \code{\link[base]{system2}} \code{\link[base]{system}} \code{\link[base]{Sys.which}}
 }
-

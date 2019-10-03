@@ -16,4 +16,3 @@ Analyze(fileStem, inputFiles, title)
 \description{
 Create an analysis file
 }
-

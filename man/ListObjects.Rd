@@ -20,4 +20,3 @@ Form a character vector of the names of objects, based on patterns.
 \details{
 This will collect objects based on a vector of character patterns.
 }
-

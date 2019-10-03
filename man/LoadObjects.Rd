@@ -31,4 +31,3 @@ loadedObjects <- LoadObjects(params)
 }
 
 }
-

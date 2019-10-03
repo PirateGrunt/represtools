@@ -41,4 +41,3 @@ DesribeObjects(list(myFit1, myFit2), broom::tidy)
 }
 
 }
-
