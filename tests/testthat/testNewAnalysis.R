@@ -55,11 +55,6 @@ test_that("RProj exists", {
 
   testthat::expect_true(file.exists("./Testing.Rproj"))
 
-  rProjFile <- readLines("./Testing.Rproj")
-  isValid <- grepl("^Version", rProjFile)
-
-  testthat::expect_true(sum(isValid) == 1)
-
   unlink("Testing", recursive = TRUE)
   setwd(oldWD)
 })
