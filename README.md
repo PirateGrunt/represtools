@@ -1,6 +1,6 @@
 [![Travis-CI Build Status](https://travis-ci.org/PirateGrunt/represtools.svg?branch=master)](https://travis-ci.org/PirateGrunt/represtools)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/represtools)](http://cran.r-project.org/package=represtools)
-[![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/grand-total/represtools)](https://cran.r-project.org/package=represtools)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/represtools)](https://cran.r-project.org/package=represtools)
+[![Downloads from the RStudio CRAN mirror](https://cranlogs.r-pkg.org/badges/grand-total/represtools)](https://cran.r-project.org/package=represtools)
 [![codecov](https://codecov.io/gh/PirateGrunt/represtools/branch/master/graph/badge.svg)](https://codecov.io/gh/PirateGrunt/represtools)
 [![Coverage Status](https://coveralls.io/repos/github/PirateGrunt/represtools/badge.svg?branch=master)](https://coveralls.io/github/PirateGrunt/represtools?branch=master)
 
